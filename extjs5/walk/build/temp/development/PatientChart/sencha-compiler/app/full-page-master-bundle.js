@@ -1,2 +1,2 @@
 // @tag full-page
-// @require /Library/WebServer/Documents/figleaftraining/extjs5/walk/walk7-1/app.js
+// @require /Users/ryan/Dropbox/courses/extjs-figleaf/extjs5bootcamp/figleaftraining/extjs5/walk/walk2-3/app.js
