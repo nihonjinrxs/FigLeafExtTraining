@@ -8,11 +8,20 @@ Ext.define('PatientChart.Application', {
     
     name: 'PatientChart',
 
+    requires: [
+        'PatientChart.view.main.Main'
+    ],
+
     stores: [
         // TODO: add global / shared stores here
     ],
     
     launch: function () {
-        // TODO - Launch the application
+        Ext.create('Ext.container.Viewport', {
+            layout: 'fit',
+            items: [{
+                xtype: 'app-main'
+            }]
+        });
     }
 });
