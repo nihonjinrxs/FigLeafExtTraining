@@ -15,12 +15,16 @@ Ext.define('PatientChart.view.main.MainController', {
     alias: 'controller.main',
 
     onClickButton: function () {
-        Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
+        Ext.Msg.prompt('Enter the app name',
+            '',
+            'onChangeAppName',
+            this
+        );
     },
 
-    onConfirm: function (choice) {
-        if (choice === 'yes') {
-            //
+    onChangeAppName: function (choice, text) {
+        if (choice === 'ok') {
+            this.getViewModel().set('name', text);
         }
     }
 });
