@@ -8,6 +8,8 @@ Ext.define('PatientChart.view.about.About',{
         'PatientChart.view.about.AboutModel'
     ],
 
+    mixins: ['Ext.ux.mixins.WindowAnimations'],
+
     controller: 'about-about',
     viewModel: {
         type: 'about-about'
@@ -19,5 +21,6 @@ Ext.define('PatientChart.view.about.About',{
     height: 300,
     title: 'About Doctor Ext',
     contentEl: 'aboutDoctorExt',
-    cls: 'credits'
+    cls: 'credits',
+    closeAnimation: 'switchOff'
 });
