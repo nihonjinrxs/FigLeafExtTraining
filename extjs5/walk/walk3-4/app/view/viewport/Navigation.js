@@ -2,7 +2,10 @@ Ext.define("PatientChart.view.viewport.Navigation", {
     extend: "Ext.panel.Panel",
     requires: [
         'PatientChart.view.viewport.NavigationController',
-        'Ext.button.Button'
+        'Ext.button.Button',
+        'Ext.button.Split',
+        'Ext.menu.Menu',
+        'Ext.menu.Item'
     ],
     controller: "viewport-navigation",
     alias: 'widget.mainnavbar',
@@ -16,9 +19,11 @@ Ext.define("PatientChart.view.viewport.Navigation", {
         align: 'stretch'
     },
     defaults: {
-        xtype: 'button',
+        xtype: 'splitbutton',
         height: 45,
-        margin: '0 0 10 0'
+        margin: '0 0 10 0',
+        toggleGroup: 'perspectives',
+        allowDepress: false
     },
     items: [{
         text: 'Administer'
