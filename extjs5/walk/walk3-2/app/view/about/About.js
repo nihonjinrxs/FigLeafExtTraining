@@ -1,6 +1,7 @@
 
 Ext.define('PatientChart.view.about.About',{
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.window.Window',
+    alias: 'widget.about',
 
     requires: [
         'PatientChart.view.about.AboutController',
@@ -12,5 +13,11 @@ Ext.define('PatientChart.view.about.About',{
         type: 'about-about'
     },
 
-    html: 'Hello, World!!'
+    modal: true,
+    autoShow: true,
+    width: 400,
+    height: 300,
+    title: 'About Doctor Ext',
+    contentEl: 'aboutDoctorExt',
+    cls: 'credits'
 });
