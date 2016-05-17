@@ -48,8 +48,15 @@ Ext.define("PatientChart.view.viewport.Navigation", {
             ]
         }
     }, {
-
-        text: 'Research'
+        text: 'Research',
+        iconCls: 'btnResearchIcon',
+        menu: {
+            width: 150,
+            items: [
+                { text: 'Clinical Trials', iconCls: 'injection' },
+                { text: 'Hospital Stats', iconCls: 'hospital' }
+            ]
+        }
     }, {
 
         text: 'About'
