@@ -9,13 +9,18 @@ Ext.define('PatientChart.view.main.MainController', {
     extend: 'Ext.app.ViewController',
 
     requires: [
-        'Ext.window.MessageBox'
+        'Ext.window.MessageBox',
+        'Ext.ux.imageviewer.ImageViewer'
     ],
 
     alias: 'controller.main',
 
     onClickButton: function() {
-        Ext.Msg.prompt('Enter the app name', '', 'onConfirm', this);
+        this.getView().down('tabpanel').add({
+            title: 'Chest X-Ray',
+            xtype: 'extimageviewer',
+            src: PatientChart.AppDefaults.getImageUrl() + 'chestxray.jpg'
+        });
     },
 
     onConfirm: function(choice, text) {
