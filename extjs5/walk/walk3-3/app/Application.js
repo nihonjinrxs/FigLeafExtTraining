@@ -9,8 +9,7 @@ Ext.define('PatientChart.Application', {
 	name: 'PatientChart',
 
 	requires: [
-		'PatientChart.view.main.Main',
-		// 'Ext.Logger',
+		'PatientChart.view.viewport.Viewport',
 		'PatientChart.AppDefaults'
 	],
 
@@ -19,16 +18,6 @@ Ext.define('PatientChart.Application', {
 	],
 
 	launch: function() {
-
-		for (var i = 0; i < 5; i++) {
-			Ext.Logger.log(i);
-		}
-
-		Ext.create('Ext.container.Viewport', {
-			layout: 'fit',
-			items: [{
-				xtype: 'app-main'
-			}]
-		});
+		Ext.create('PatientChart.view.viewport.Viewport');
 	}
 });

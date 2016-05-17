@@ -20,7 +20,9 @@ Ext.define('PatientChart.view.viewport.Navigation',{
         align: 'stretch'
     },
     defaults: {
-        xtype: 'button'
+        xtype: 'button',
+        height: 45,
+        margin: '0 0 10 0'
     },
     items: [
         { text: 'Administer' },
