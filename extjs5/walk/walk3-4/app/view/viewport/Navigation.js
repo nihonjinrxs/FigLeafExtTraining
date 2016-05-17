@@ -38,8 +38,15 @@ Ext.define("PatientChart.view.viewport.Navigation", {
         }
     }, {
 
-        text: 'Patients'
-
+        text: 'Patients',
+        iconCls: 'btnPatientsIcon',
+        menu: {
+            width: 150,
+            items: [
+                { text: 'Search', iconCls: 'patientFind' },
+                { text: 'Add New', iconCls: 'patientAdd' }
+            ]
+        }
     }, {
 
         text: 'Research'
