@@ -26,7 +26,8 @@ Ext.define('PatientChart.view.viewport.Viewport',{
         },
         {
             region: 'center',
-            hideHeader: true
+            hideHeader: true,
+            cls: 'appBackground'
         }
     ]
 });
