@@ -1,16 +1,22 @@
 
 Ext.define('PatientChart.view.viewport.Navigation',{
     extend: 'Ext.panel.Panel',
+    alias: 'widget.mainnavbar',
 
     requires: [
         'PatientChart.view.viewport.NavigationController',
-        'PatientChart.view.viewport.NavigationModel'
+        'Ext.layout.container.VBox',
+        'Ext.button.Button'
     ],
 
     controller: 'viewport-navigation',
-    viewModel: {
-        type: 'viewport-navigation'
-    },
 
-    html: 'Hello, World!!'
+    width: 150,
+    bodyPadding: 5,
+    title: 'Navigate',
+    header: false,
+    layout: {
+        type: 'vbox',
+        align: 'stretch'
+    }
 });
