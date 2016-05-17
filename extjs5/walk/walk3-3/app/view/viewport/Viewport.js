@@ -1,10 +1,12 @@
 
 Ext.define('PatientChart.view.viewport.Viewport',{
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.container.Viewport',
 
     requires: [
         'PatientChart.view.viewport.ViewportController',
-        'PatientChart.view.viewport.ViewportModel'
+        'PatientChart.view.viewport.ViewportModel',
+        'Ext.layout.container.Border',
+        'PatientChart.view.viewport.Navigation'
     ],
 
     controller: 'viewport-viewport',
@@ -12,5 +14,19 @@ Ext.define('PatientChart.view.viewport.Viewport',{
         type: 'viewport-viewport'
     },
 
-    html: 'Hello, World!!'
+    layout: 'border',
+
+    items: [
+        {
+            xtype: 'mainnavbar',
+            collapsible: true,
+            region: 'west',
+            split: true,
+            splitterResize: false
+        },
+        {
+            region: 'center',
+            hideHeader: true
+        }
+    ]
 });
