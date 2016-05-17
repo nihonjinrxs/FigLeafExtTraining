@@ -26,8 +26,16 @@ Ext.define("PatientChart.view.viewport.Navigation", {
         allowDepress: false
     },
     items: [{
-        text: 'Administer'
-
+        text: 'Administer',
+        iconCls: 'btnAdminIcon',
+        menu: {
+            width: 182,
+            items: [
+                { text: 'Allergies', iconCls: 'nose' },
+                { text: 'Pre-existing Conditions', iconCls: 'bottleOfPills' },
+                { text: 'Billing Codes/Procedures', iconCls: 'medicalBag' }
+            ]
+        }
     }, {
 
         text: 'Patients'
