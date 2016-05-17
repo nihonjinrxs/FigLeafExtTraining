@@ -3,6 +3,38 @@ Ext.define('PatientChart.view.about.About', {
 	requires: ['PatientChart.view.about.AboutController'],
 	mixins: ['Ext.ux.mixins.WindowAnimations'],
 	alias: 'widget.about',
+	dockedItems: [
+		{
+			xtype: "toolbar",
+			dock: "bottom",
+			style: {
+				'background-color': '#0082C9'
+			},
+			layout: {
+				type: 'hbox',
+				pack: 'center'
+			},
+			defaults: {
+				xtype: 'button',
+				hrefTarget: '_blank',
+				flex: 1
+			},
+			items: [
+				{
+					text: 'Get Help with a Project',
+					href: 'http://www.figleaf.com'
+				},
+				{
+					text: 'Get Trained',
+					href: 'http://training.figleaf.com/courses/sencha.cfm'
+				},
+				{
+					text: 'Contact Us',
+					href: 'mailto:info@figleaf.com?subject=Dr%20Ext'
+				}
+			]
+		}
+	],
 	modal: true,
 	autoShow: true,
 	width: 550,
