@@ -77,7 +77,10 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 	}, {
 		xtype: 'button',
 		text: 'About',
-		iconCls: 'btnAbout'
+		iconCls: 'btnAbout',
+		listeners: {
+			click: 'onAboutClick'
+		}
 	}]
 
 });
