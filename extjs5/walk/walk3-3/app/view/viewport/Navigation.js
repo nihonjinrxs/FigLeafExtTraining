@@ -18,5 +18,14 @@ Ext.define('PatientChart.view.viewport.Navigation',{
     layout: {
         type: 'vbox',
         align: 'stretch'
-    }
+    },
+    defaults: {
+        xtype: 'button'
+    },
+    items: [
+        { text: 'Administer' },
+        { text: 'Patients' },
+        { text: 'Research' },
+        { text: 'About' }
+    ]
 });
