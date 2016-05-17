@@ -58,8 +58,12 @@ Ext.define("PatientChart.view.viewport.Navigation", {
             ]
         }
     }, {
-
-        text: 'About'
+        xtype: 'button',
+        text: 'About',
+        iconCls: 'btnAbout',
+        handler: function() {
+            Ext.widget('about');
+        }
     }]
 
 });
