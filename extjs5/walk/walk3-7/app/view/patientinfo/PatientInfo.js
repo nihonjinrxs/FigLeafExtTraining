@@ -33,10 +33,13 @@ Ext.define("PatientChart.view.patientinfo.PatientInfo", {
 		plain: true,
 		removePanelHeader: false,
 		tabPosition: 'bottom',
-		
+		listeners: {
+			tabchange: 'onPatientInfoTabChange'
+		},
 		items: [{
 			xtype: 'patientform',
 			title: 'Patient Info',
+			reference: 'patientform',
 			
 			tools: [{
                 xtype: 'tool',
@@ -44,13 +47,16 @@ Ext.define("PatientChart.view.patientinfo.PatientInfo", {
             }],
 		}, {
 			xtype: 'patientprocedures',
-			title: 'Procedures'
+			title: 'Procedures',
+			reference: 'procedures'
 		}, {
 			xtype: 'patientmedia',
-			title: 'Media'
+			title: 'Media',
+			reference: 'media'
 		}, {
 			xtype: 'patientgraphs',
-			title: 'Statistics'
+			title: 'Statistics',
+			reference: 'graphs'
 		}]
 	}]
 });
