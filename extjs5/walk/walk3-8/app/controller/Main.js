@@ -8,7 +8,8 @@ Ext.define('PatientChart.controller.Main', {
   requires: [
     'Ext.app.route.Route',
     'PatientChart.view.about.About',
-    'PatientChart.view.admin.Admin'
+    'PatientChart.view.admin.Admin',
+    'PatientChart.view.admin.allergies.Allergies'
   ],
 
   refs: {
@@ -20,6 +21,9 @@ Ext.define('PatientChart.controller.Main', {
   routes: {
     'admin': {
       action: 'onAdminPerspective'
+    },
+    'admin/:xtype': {
+      action: 'onAdminViewWindow'
     },
     'patient/search': {
       action: 'onPatientSearch'
@@ -43,6 +47,18 @@ Ext.define('PatientChart.controller.Main', {
     this.setCurrentPerspective('adminperspective');
   },
 
+  onAdminViewWindow: function(xtype) {
+    this.setCurrentPerspective('adminperspective');
+    var win = Ext.ComponentQuery.query(xtype);
+    if (win.length === 1) {
+      this.focusWin(win[0]);
+    } else {
+      this.getCenterRegion().add({
+        xtype: xtype
+      }).show();
+    }
+  },
+
   onPatientSearch: function() {
     // patientchartperspective is the xtype for the 
     // patientinfo view
@@ -64,7 +80,7 @@ Ext.define('PatientChart.controller.Main', {
 
   updateCurrentPerspective: function(newPerspective, oldPerspective) {
 
-    if (newPerspective != oldPerspective) {
+    if (newPerspective !== oldPerspective) {
       if (this.getCenterRegion()) {
         this.getCenterRegion().destroy();
       }

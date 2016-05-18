@@ -14,5 +14,10 @@ Ext.define('PatientChart.view.viewport.NavigationController', {
 
 	onAdminPerspectiveClick: function() {
 		this.redirectTo('admin');
+	},
+
+	onAdminMenuItemClick: function(menu, menuitem, event, eventOptions) {
+		// xtype of view is stored in menuitem.itemId
+		this.redirectTo('admin/' + menuitem.itemId)
 	}
 });
