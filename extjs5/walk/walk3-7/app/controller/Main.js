@@ -21,14 +21,14 @@ Ext.define('PatientChart.controller.Main', {
 		}
 	},
 
-	updateCurrentPerspective: function(oldPerspective, newPerspective) {
+	updateCurrentPerspective: function(newPerspective, oldPerspective) {
 		if (newPerspective != oldPerspective) {
 			if (this.getCenterRegion()) {
 				this.getCenterRegion().destroy();
 			}
 			this.getViewport().add({
 				xtype: newPerspective,
-				region: center
+				region: 'center'
 			});
 		}
 	},

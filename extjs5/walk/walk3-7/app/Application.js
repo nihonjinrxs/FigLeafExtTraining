@@ -18,6 +18,7 @@ Ext.define('PatientChart.Application', {
 		// TODO: add global / shared stores here
 	],
 
+	controllers: [ 'Main' ],
 
 	launch: function() {
 

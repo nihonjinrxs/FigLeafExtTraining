@@ -22,20 +22,10 @@ Ext.define("PatientChart.view.viewport.Viewport", {
 			split: true,
 			splitterResize: false
 		},
-
-		/*
 		{
 			region: 'center',
 			hideHeader: true,
 			cls: 'appBackground'
 		}
-		*/
-
-		{
-			region: 'center',
-			hideHeader: true,
-			xtype: 'patientinfoperspective'
-		}
-
 	]
 });
