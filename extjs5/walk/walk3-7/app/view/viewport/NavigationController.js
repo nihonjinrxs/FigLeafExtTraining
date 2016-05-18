@@ -6,5 +6,8 @@ Ext.define('PatientChart.view.viewport.NavigationController', {
 	],
 	onAboutClick: function(b, e, eOpts) {
 		Ext.widget('about');
+	},
+	onPatientPerspectiveClick: function(button, event, eventOpts) {
+		this.redirectTo('patient/search');
 	}
 });

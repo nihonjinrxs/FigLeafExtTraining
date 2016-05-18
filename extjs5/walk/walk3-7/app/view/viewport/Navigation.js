@@ -57,8 +57,11 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 				iconCls: 'patientAdd',
 				text: 'Add New'
 			}]
+		},
+		listeners: {
+			click: 'onPatientPerspectiveClick',
+			arrowclick: 'onPatientPerspectiveClick'
 		}
-		// step 2
 
 	}, {
 
