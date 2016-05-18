@@ -4,8 +4,8 @@ Ext.define('PatientChart.view.viewport.NavigationController', {
 	requires: [
 		'PatientChart.view.about.About'
 	],
-	onAboutClick: function(b, e, eOpts) {
-		Ext.widget('about');
+	onAboutClick: function(button, event, eventOptions) {
+		Ext.widget('about', {animateTarget: button});
 	},
 
 	onPatientPerspectiveClick: function() {
