@@ -21,6 +21,18 @@ Ext.define('PatientChart.controller.Main', {
 		}
 	},
 
+	updateCurrentPerspective: function(oldPerspective, newPerspective) {
+		if (newPerspective != oldPerspective) {
+			if (this.getCenterRegion()) {
+				this.getCenterRegion().destroy();
+			}
+			this.getViewport().add({
+				xtype: newPerspective,
+				region: center
+			});
+		}
+	},
+
 	onPatientSearch: function() {
 		this.setCurrentPerspective('patientinfoperspective');
 	}
