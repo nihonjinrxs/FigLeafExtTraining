@@ -1,6 +1,7 @@
 
 Ext.define('PatientChart.view.admin.billingcodes.BillingCodes',{
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.window.Window',
+    alias: 'widget.billingcodes',
 
     requires: [
         'PatientChart.view.admin.billingcodes.BillingCodesController',
@@ -12,5 +13,15 @@ Ext.define('PatientChart.view.admin.billingcodes.BillingCodes',{
         type: 'admin-billingcodes-billingcodes'
     },
 
-    html: 'Hello, World!!'
+    constrain: true,
+    width: 400,
+    height: 250,
+    layout: 'fit',
+    title: 'Edit Billing Codes/Procedures',
+
+    tools: [
+        { xtype: 'tool', type: 'plus' },
+        { xtype: 'tool', type: 'minus' },
+        { xtype: 'tool', type: 'refresh' }
+    ]
 });

@@ -9,7 +9,9 @@ Ext.define('PatientChart.controller.Main', {
     'Ext.app.route.Route',
     'PatientChart.view.about.About',
     'PatientChart.view.admin.Admin',
-    'PatientChart.view.admin.allergies.Allergies'
+    'PatientChart.view.admin.allergies.Allergies',
+    'PatientChart.view.admin.preexistingconditions.PreExistingConditions',
+    'PatientChart.view.admin.billingcodes.BillingCodes'
   ],
 
   refs: {
