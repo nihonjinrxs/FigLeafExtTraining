@@ -2,7 +2,7 @@
 Ext.define('PatientChart.view.patientinfo.PatientInfo',{
     extend: 'Ext.panel.Panel',
     alias: 'widget.patientinfo',
-    
+
     requires: [
         'PatientChart.view.patientinfo.PatientInfoModel',
         'PatientChart.view.patientinfo.PatientInfoController',
@@ -16,5 +16,35 @@ Ext.define('PatientChart.view.patientinfo.PatientInfo',{
     controller: 'patientinfo-patientinfo',
     viewModel: {
         type: 'patientinfo-patientinfo'
-    }
+    },
+
+    layout: 'border',
+
+    header: false,
+    title: 'Patient Information',
+
+    items: [
+        {
+            xtype: 'patientanatomy',
+            region: 'east',
+            width: 235,
+            split: true,
+            collapsible: true
+        }
+    ],
+
+    dockedItems: [
+        {
+            xtype: 'tabpanel',
+            region: 'center',
+            removePanelHeader: false,
+            tabPosition: 'bottom',
+            items: [
+                { xtype: 'patientform', title: 'Patient Info' },
+                { xtype: 'patientprocedures', title: 'Procedures' },
+                { xtype: 'patientmedia', title: 'Media' },
+                { xtype: 'patientgraphs', title: 'Statistics' },
+            ]
+        }
+    ]
 });
