@@ -10,5 +10,9 @@ Ext.define('PatientChart.view.viewport.NavigationController', {
 
 	onPatientPerspectiveClick: function() {
 		this.redirectTo('patient/search');
+	},
+
+	onAdminPerspectiveClick: function() {
+		this.redirectTo('admin');
 	}
 });

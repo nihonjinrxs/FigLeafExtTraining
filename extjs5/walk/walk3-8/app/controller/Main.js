@@ -7,7 +7,8 @@ Ext.define('PatientChart.controller.Main', {
 
   requires: [
     'Ext.app.route.Route',
-    'PatientChart.view.about.About'
+    'PatientChart.view.about.About',
+    'PatientChart.view.admin.Admin'
   ],
 
   refs: {
@@ -17,6 +18,9 @@ Ext.define('PatientChart.controller.Main', {
   },
 
   routes: {
+    'admin': {
+      action: 'onAdminPerspective'
+    },
     'patient/search': {
       action: 'onPatientSearch'
     },
@@ -35,7 +39,9 @@ Ext.define('PatientChart.controller.Main', {
     win.getEl().frame();
   },
 
-
+  onAdminPerspective: function() {
+    this.setCurrentPerspective('adminperspective');
+  },
 
   onPatientSearch: function() {
     // patientchartperspective is the xtype for the 

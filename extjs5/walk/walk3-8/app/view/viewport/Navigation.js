@@ -46,6 +46,10 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 				text: 'Billing Codes/Procedures',
 				iconCls: 'medicalBag'
 			}]
+		},
+		listeners: {
+			click: 'onAdminPerspectiveClick',
+			arrowclick: 'onAdminPerspectiveClick'
 		}
 	}, {
 
