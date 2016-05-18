@@ -31,6 +31,9 @@ Ext.define('PatientChart.controller.Main', {
 				region: 'center'
 			});
 		}
+		this.getNavButtons()
+			.down('#btn' + Ext.String.capitalize(newPerspective))
+			.setPressed(true);
 	},
 
 	onPatientSearch: function() {

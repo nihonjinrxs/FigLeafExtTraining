@@ -27,8 +27,8 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 	},
 	items: [{
 		text: 'Administer',
+		itemId: 'btnAdminperspective',
 		iconCls: 'btnAdminIcon',
-		
 		menu: {
 			xtype: 'menu',
 			width: 182,
@@ -46,7 +46,7 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 	}, {
 
 		text: 'Patients',
-		
+		itemId: 'btnPatientinfoperspective',
 		iconCls: 'btnPatientsIcon',
 		menu: {
 			width: 150,
@@ -66,7 +66,7 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 	}, {
 
 		text: 'Research',
-		
+		itemId: 'btnResearchperspective',
 		iconCls: 'btnResearchIcon',
 		menu: {
 			width: 150,
