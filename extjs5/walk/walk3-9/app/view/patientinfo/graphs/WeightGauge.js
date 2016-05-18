@@ -1,11 +1,16 @@
 
-Ext.define("PatientChart.view.patientinfo.graphs.WeightGauge",{
-    extend: "Ext.panel.Panel",
+Ext.define('PatientChart.view.patientinfo.graphs.WeightGauge',{
+    extend: 'Ext.panel.Panel',
 
-    controller: "patientinfo-graphs-weightgauge",
+    requires: [
+        'PatientChart.view.patientinfo.graphs.WeightGaugeController',
+        'PatientChart.view.patientinfo.graphs.WeightGaugeModel'
+    ],
+
+    controller: 'patientinfo-graphs-weightgauge',
     viewModel: {
-        type: "patientinfo-graphs-weightgauge"
+        type: 'patientinfo-graphs-weightgauge'
     },
 
-    html: "Hello, World!!"
+    html: 'Hello, World!!'
 });
