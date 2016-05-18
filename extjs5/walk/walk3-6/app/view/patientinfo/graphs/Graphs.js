@@ -9,5 +9,5 @@ Ext.define('PatientChart.view.patientinfo.graphs.Graphs',{
 
     controller: 'patientinfo-graphs-graphs',
 
-    html: 'Hello, World!!'
+    html: 'Patient Graphs sub-view'
 });

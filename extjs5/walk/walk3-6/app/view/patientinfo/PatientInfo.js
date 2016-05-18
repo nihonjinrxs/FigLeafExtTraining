@@ -28,12 +28,10 @@ Ext.define('PatientChart.view.patientinfo.PatientInfo',{
             xtype: 'patientanatomy',
             region: 'east',
             width: 235,
+            title: 'Anatomy',
             split: true,
             collapsible: true
-        }
-    ],
-
-    dockedItems: [
+        },
         {
             xtype: 'tabpanel',
             region: 'center',

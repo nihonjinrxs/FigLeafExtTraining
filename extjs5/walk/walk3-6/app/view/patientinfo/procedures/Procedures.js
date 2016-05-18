@@ -9,5 +9,5 @@ Ext.define('PatientChart.view.patientinfo.procedures.Procedures',{
 
     controller: 'patientinfo-procedures-procedures',
 
-    html: 'Hello, World!!'
+    html: 'Patient Procedures sub-view'
 });

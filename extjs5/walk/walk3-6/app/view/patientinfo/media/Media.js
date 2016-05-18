@@ -9,5 +9,5 @@ Ext.define('PatientChart.view.patientinfo.media.Media',{
 
     controller: 'patientinfo-media-media',
 
-    html: 'Hello, World!!'
+    html: 'Patient Media sub-view'
 });

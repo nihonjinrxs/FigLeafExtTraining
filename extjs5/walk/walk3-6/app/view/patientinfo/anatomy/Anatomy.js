@@ -13,5 +13,5 @@ Ext.define('PatientChart.view.patientinfo.anatomy.Anatomy',{
         type: 'patientinfo-anatomy-anatomy'
     },
 
-    html: 'Hello, World!!'
+    html: 'Patient Anatomy sub-view'
 });

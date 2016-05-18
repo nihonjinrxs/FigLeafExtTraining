@@ -9,5 +9,5 @@ Ext.define('PatientChart.view.patientinfo.form.Form',{
 
     controller: 'patientinfo-form-form',
 
-    html: 'Hello, World!!'
+    html: 'Patient Form sub-view'
 });
