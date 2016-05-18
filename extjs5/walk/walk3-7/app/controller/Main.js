@@ -18,6 +18,12 @@ Ext.define('PatientChart.controller.Main', {
 	routes: {
 		'patient/search': {
 			action: 'onPatientSearch'
+		},
+		'patient/:id/:tab': {
+			action: 'onLoadPatientRecord',
+			conditions: {
+				':id': '([0-9]+)'
+			}
 		}
 	},
 
@@ -38,5 +44,14 @@ Ext.define('PatientChart.controller.Main', {
 
 	onPatientSearch: function() {
 		this.setCurrentPerspective('patientinfoperspective');
+	},
+	onLoadPatientRecord: function(id, tab) {
+		this.setCurrentPerspective('patientinfoperspective');
+		if (tab) {
+			var tp = this.getCenterRegion().down('tabpanel');
+			tp.setActiveTab(
+				tp.down('panel[reference=' + tab + ']')
+			);
+		}
 	}
 });
