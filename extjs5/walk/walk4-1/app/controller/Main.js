@@ -11,7 +11,10 @@ Ext.define('PatientChart.controller.Main', {
     'PatientChart.view.admin.Admin',
     'PatientChart.view.admin.allergies.Allergies',
     'PatientChart.view.admin.billingcodes.BillingCodes',
-    'PatientChart.view.admin.preexistingconditions.PreExistingConditions'
+    'PatientChart.view.admin.preexistingconditions.PreExistingConditions',
+    'PatientChart.view.research.Research',
+    'PatientChart.view.research.clinicaltrials.ClinicalTrials',
+    'PatientChart.view.research.hospitals.Hospitals'
   ],
 
   refs: {
@@ -38,6 +41,14 @@ Ext.define('PatientChart.controller.Main', {
     },
     'admin/:xtype': {
       action: 'onAdminViewWindow',
+      before: 'onAuthenticate'
+    },
+    'research': {
+      action: 'onResearchPerspective',
+      before: 'onAuthenticate'
+    },
+    'research/:xtype': {
+      action: 'onResearchViewWindow',
       before: 'onAuthenticate'
     }
   },
@@ -128,6 +139,23 @@ Ext.define('PatientChart.controller.Main', {
 
   },
 
+  onResearchViewWindow: function(xtype) {
+    this.setCurrentPerspective('researchperspective');
+
+    var win = Ext.ComponentQuery.query(xtype);
+    if (win.length == 1) {
+      this.focusWin(win[0]);
+    } else {
+      this.getCenterRegion().add({
+        xtype: xtype
+      }).show();
+    }
+  },
+
+  onResearchPerspective: function() {
+    this.setCurrentPerspective('researchperspective');
+  },
+
   updateCurrentPerspective: function(newPerspective, oldPerspective) {
 
     if (newPerspective != oldPerspective) {
@@ -138,7 +166,9 @@ Ext.define('PatientChart.controller.Main', {
         xtype: newPerspective,
         region: 'center'
       });
-      this.getNavButtons().down('#btn' + Ext.String.capitalize(newPerspective)).setPressed(true);
+      this.getNavButtons()
+          .down('#btn' + Ext.String.capitalize(newPerspective))
+          .setPressed(true);
     }
   }
 

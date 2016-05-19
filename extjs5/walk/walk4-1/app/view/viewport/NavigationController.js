@@ -19,7 +19,14 @@ Ext.define('PatientChart.view.viewport.NavigationController', {
 	},
 
 	onAdminMenuItemClick: function(menu, menuitem, e, eOpts) {
-		var xtype = menuitem.itemId;
 		this.redirectTo('admin/' + menuitem.itemId);
+	},
+
+	onResearchPerspectiveClick: function() {
+		this.redirectTo('research');
+	},
+
+	onResearchMenuItemClick: function(menu, menuitem, e, eOpts) {
+		this.redirectTo('research/' + menuitem.itemId);
 	}
 });
