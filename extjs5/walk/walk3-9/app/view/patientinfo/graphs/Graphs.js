@@ -32,5 +32,23 @@ Ext.define("PatientChart.view.patientinfo.graphs.Graphs",{
     	weightguage: {
     		viewTemplate: { title: 'Weight' }
     	}
-    }
+    },
+
+    defaultContent: [
+    	{
+    		type: 'patientstats',
+    		columnIndex: 0,
+    		height: 300
+    	},
+    	{
+    		type: 'patientheightweight',
+    		columnIndex: 1,
+    		height: 300
+    	},
+    	{
+    		type: 'weightguage',
+    		columnIndex: 0,
+    		height: 300
+    	}
+    ]
 });
