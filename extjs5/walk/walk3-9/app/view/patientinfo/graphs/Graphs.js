@@ -9,4 +9,28 @@ Ext.define("PatientChart.view.patientinfo.graphs.Graphs",{
     	'PatientChart.view.patientinfo.graphs.WeightGauge'
     ],
     controller: "patientinfo-graphs-graphs",
+
+    config: {
+    	header: false,
+    	maxColumns: 2
+    },
+
+    parts: {
+    	patientstats: {
+    		viewTemplate: {
+    			title: 'Measurements',
+    			tools: [
+    				{ xtype: 'tool', type: 'plus' },
+    				{ xtype: 'tool', type: 'minus' },
+    				{ xtype: 'tool', type: 'refresh' }
+    			]
+    		}
+    	},
+    	patientheightweight: {
+    		viewTemplate: { title: 'Height/Weight' }
+    	},
+    	weightguage: {
+    		viewTemplate: { title: 'Weight' }
+    	}
+    }
 });
