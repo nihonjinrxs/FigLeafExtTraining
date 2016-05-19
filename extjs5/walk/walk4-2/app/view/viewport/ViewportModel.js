@@ -3,7 +3,7 @@ Ext.define('PatientChart.view.viewport.ViewportModel', {
 	alias: 'viewmodel.viewport-viewport',
 	data: {
 		userName: 'anonymous',
-		role: 'user'
+		role: 'admin'
 	},
 	formulas: {
 		isAdmin: {

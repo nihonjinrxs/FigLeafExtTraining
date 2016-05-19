@@ -39,6 +39,9 @@ Ext.define('PatientChart.controller.Main', {
     'admin/:xtype': {
       action: 'onAdminViewWindow',
       before: 'onAuthenticate'
+    },
+    'logout': {
+      action: 'onLogout'
     }
   },
 
@@ -161,8 +164,22 @@ Ext.define('PatientChart.controller.Main', {
     } else {
       action.resume();
     }
+  },
+
+  onLogout: function() {
+    var vm = this.getViewport().getViewModel();
+    vm.set('userName', 'anonymous');
+    vm.set('role','admin');
+    PatientChart.credentials = null;
+    this.getCenterRegion().destroy();
+    this.getViewport().add({
+      xtype: 'panel',
+      region: 'center',
+      hideHeader: true,
+      cls: 'appBackground'
+    });
+    var btn = this.getNavButtons().down('button[pressed=true]');
+    if (btn) { btn.setPressed(false); }
   }
-
-
 
 });

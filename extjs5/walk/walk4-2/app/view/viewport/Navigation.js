@@ -119,8 +119,16 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 				click: 'onAboutClick'
 			},
 			toggleGroup: null
+		}, {
+			xtype: 'button',
+			text: 'Logout',
+			iconCls: 'btnLogout',
+			listeners: {
+				click: 'onLogoutClick'
+			},
+			toggleGroup: null
 		}
-		// step 24
+		
 		
 	]
 
