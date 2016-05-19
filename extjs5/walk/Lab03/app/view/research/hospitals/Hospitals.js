@@ -1,6 +1,7 @@
 
 Ext.define('PatientChart.view.research.hospitals.Hospitals',{
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.window.Window',
+    alias: 'widget.hospitalstatswindow',
 
     requires: [
         'PatientChart.view.research.hospitals.HospitalsController',
@@ -12,5 +13,10 @@ Ext.define('PatientChart.view.research.hospitals.Hospitals',{
         type: 'research-hospitals-hospitals'
     },
 
-    html: 'Hello, World!!'
+    constrain: true,
+    maximizable: true,
+    autoShow: true,
+    height: 475,
+    width: 1000,
+    title: 'Hospital Treatment Costs per Diagnosis'
 });

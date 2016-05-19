@@ -53,7 +53,8 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 			click: 'onAdminPerspectiveClick',
 			arrowclick: 'onAdminPerspectiveClick'
 		}
-	}, {
+	},
+	{
 
 		text: 'Patients',
 		itemId: 'btnPatientinfoperspective',
@@ -73,7 +74,8 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 			arrowclick: 'onPatientPerspectiveClick'
 		}
 
-	}, {
+	},
+	{
 
 		text: 'Research',
 		itemId: 'btnResearchperspective',
@@ -88,9 +90,17 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 				text: 'Hospital Stats',
 				iconCls: 'hospital',
 				itemId: 'hospitalstatswindow'
-			}]
+			}],
+			listeners: {
+				click: 'onResearchMenuItemClick'
+			}
+		},
+		listeners: {
+			click: 'onResearchPerspectiveClick',
+			arrowclick: 'onResearchPerspectiveClick'
 		}
-	}, {
+	},
+	{
 		xtype: 'button',
 		text: 'About',
 		iconCls: 'btnAbout',

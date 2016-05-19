@@ -1,6 +1,7 @@
 
 Ext.define('PatientChart.view.research.Research',{
     extend: 'Ext.panel.Panel',
+    alias: 'widget.researchperspective',
 
     requires: [
         'PatientChart.view.research.ResearchController',
@@ -12,5 +13,5 @@ Ext.define('PatientChart.view.research.Research',{
         type: 'research-research'
     },
 
-    html: 'Hello, World!!'
+    cls: 'appBackground'
 });

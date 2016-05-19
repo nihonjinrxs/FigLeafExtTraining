@@ -1,6 +1,7 @@
 
 Ext.define('PatientChart.view.research.clinicaltrials.ClinicalTrials',{
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.window.Window',
+    alias: 'widget.clinicaltrialswindow',
 
     requires: [
         'PatientChart.view.research.clinicaltrials.ClinicalTrialsController',
@@ -12,5 +13,15 @@ Ext.define('PatientChart.view.research.clinicaltrials.ClinicalTrials',{
         type: 'research-clinicaltrials-clinicaltrials'
     },
 
-    html: 'Hello, World!!'
+    constrain: true,
+    maximizable: true,
+    autoShow: true,
+    height: 397,
+    width: 717,
+    title: 'Clinical Trials',
+
+    tools: [
+        { xtype: 'tool', type: 'gear' },
+        { xtype: 'tool', type: 'refresh' }
+    ]
 });
