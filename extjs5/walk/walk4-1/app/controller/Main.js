@@ -22,19 +22,23 @@ Ext.define('PatientChart.controller.Main', {
 
   routes: {
     'patient/search': {
-      action: 'onPatientSearch'
+      action: 'onPatientSearch',
+      before: 'onAuthenticate'
     },
     'patient/:id/:tab': {
       action: 'onLoadPatientRecord',
       conditions: {
         ':id': '([0-9]+)'
-      }
+      },
+      before: 'onAuthenticate'
     },
     'admin': {
-      action: 'onAdminPerspective'
+      action: 'onAdminPerspective',
+      before: 'onAuthenticate'
     },
     'admin/:xtype': {
-      action: 'onAdminViewWindow'
+      action: 'onAdminViewWindow',
+      before: 'onAuthenticate'
     }
   },
 
@@ -43,6 +47,49 @@ Ext.define('PatientChart.controller.Main', {
     win.center();
     win.focus();
     win.getEl().frame();
+  },
+
+  onAuthenticate: function() {
+    var action = arguments[arguments.length - 1],
+        me = this;
+    if (!PatientChart.credentials) {
+      Ext.Msg.prompt(
+        "Enter your user ID",
+        "Enter a username to identify your session",
+        function(button, text) {
+          if (button == 'ok') {
+            Ext.Ajax.request({
+              url: 'http://webapps.figleaf.com/rest/prototypes/auth.json',
+              jsonData: { username: text },
+              withCredentials: true,
+              success: function(response, options) {
+                var obj = Ext.decode(response.responseText);
+                //debugger;
+                if (obj && obj.success) {
+                  PatientChart.credentials = {
+                    username: obj.username,
+                    role: obj.role
+                  };
+                  action.resume();
+                } else {
+                  Ext.Msg.alert('Authentication Failed', 'Please try again');
+                  action.stop();
+                }
+              },
+              failure: function() {
+                Ext.Msg.alert('Authentication Failed', 'Please try again');
+                action.stop();
+              }
+            });
+          } else { // user pressed Cancel button
+            action.stop();
+          }
+        },
+        this
+      );
+    } else {
+      action.resume();
+    }
   },
 
   onAdminViewWindow: function(xtype) {
