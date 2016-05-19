@@ -18,6 +18,22 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 		type: 'vbox',
 		align: 'stretch'
 	},
+	dockedItems: [
+		{
+			xtype: 'toolbar',
+			dock: 'bottom',
+			style: { 'border-top-width': '1px !important' },
+			items: [
+				{
+					xtype: 'tbtext',
+					flex: 1,
+					style: { 'text-align': 'center' },
+					bind: { text: '{userName}' }
+				}
+			]
+		}
+	],
+
 	defaults: {
 		xtype: 'splitbutton',
 		height: 45,
@@ -25,8 +41,7 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 		toggleGroup: 'perspectives',
 		allowDepress: false
 	},
-
-
+	
 	items: [{
 			text: 'Administer',
 			iconCls: 'btnAdminIcon',

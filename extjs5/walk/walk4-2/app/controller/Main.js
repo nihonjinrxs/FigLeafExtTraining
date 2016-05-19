@@ -128,9 +128,18 @@ Ext.define('PatientChart.controller.Main', {
                     role: obj.role
                   };
 
-                  // lab 4-2, step 7
-                 
+                  var vm = me.getViewport().getViewModel();
+                  vm.set('userName', obj.username);
+                  vm.set('role', obj.role);
 
+                  var isPatientPersp = location.hash.indexOf('#patient'),
+                      isAdminPersp = location.hash.indexOf('#admin'),
+                      isAdminRole = (obj.role === 'admin');
+                  if ((isPatientPersp || isAdminPersp) && isAdminRole) { 
+                    action.resume();
+                  } else {
+                    action.stop();
+                  }
 
                 } else {
                   Ext.Msg.alert('Authentication Failed', 'Please try again');
