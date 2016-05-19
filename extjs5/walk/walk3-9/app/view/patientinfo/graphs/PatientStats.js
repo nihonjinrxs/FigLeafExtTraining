@@ -1,16 +1,12 @@
 
 Ext.define('PatientChart.view.patientinfo.graphs.PatientStats',{
     extend: 'Ext.panel.Panel',
+    alias: 'widget.patientstatsgrid',
+    header: false,
 
     requires: [
-        'PatientChart.view.patientinfo.graphs.PatientStatsController',
-        'PatientChart.view.patientinfo.graphs.PatientStatsModel'
+        'PatientChart.view.patientinfo.graphs.PatientStatsController'
     ],
 
-    controller: 'patientinfo-graphs-patientstats',
-    viewModel: {
-        type: 'patientinfo-graphs-patientstats'
-    },
-
-    html: 'Hello, World!!'
+    controller: 'patientinfo-graphs-patientstats'
 });
