@@ -5,5 +5,9 @@ Ext.define('PatientChart.view.patientinfo.ChooserController', {
     onPatientSelect: function(grid, record, item, index, event, eventOptions) {
     	this.redirectTo('patient/' + record.get('id') + '/patientform');
     	grid.up('window').destroy();
+    },
+
+    onSearchFieldChange: function(field, newVal, oldVal) {
+    	this.getViewModel().set('searchFilter', newVal);
     }
 });

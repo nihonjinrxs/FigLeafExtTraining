@@ -69,7 +69,26 @@ Ext.define('PatientChart.view.patientinfo.Chooser',{
             ],
             listeners: {
                 itemdblclick: 'onPatientSelect'
-            }
+            },
+            dockedItems: [
+                {
+                    xtype: 'toolbar',
+                    dock: 'top',
+                    height: 40,
+                    items: [
+                        {
+                            xtype: 'textfield',
+                            flex: 1,
+                            fieldLabel: 'Search',
+                            emptyText: 'Enter first few letters of last name',
+                            labelWidth: 50,
+                            listeners: {
+                                'change': { fn: 'onSearchFieldChange', buffer: 250 }
+                            }
+                        }
+                    ]
+                }
+            ]
         }
     ]
 });
