@@ -19,6 +19,10 @@ Ext.define('PatientChart.controller.Main', {
     'Allergy'
   ],
 
+  stores: [
+    'Allergies'
+  ],
+
   refs: {
     centerRegion: 'viewport > panel[region=center]',
     navButtons: 'mainnavbar',
