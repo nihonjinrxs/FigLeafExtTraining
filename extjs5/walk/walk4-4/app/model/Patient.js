@@ -42,5 +42,10 @@ Ext.define('PatientChart.model.Patient', {
              list: ['Male','Female'],
            } 
         ]
+    },
+    proxy: {
+      url: 'http://webapps.figleaf.com/rest/prototypes/patient.json',
+      withCredentials: true,
+      format: 'json'
     }
 });
