@@ -28,6 +28,14 @@ Ext.define('PatientChart.view.admin.allergies.AllergiesController', {
 		if (rec.phantom) {
 			context.grid.getStore().remove(rec);
 		}
+	},
+	onAddRecord: function(tool, event, owner, eventOptions) {
+		var grid = this.lookupReference('grid');
+		var gridStore = grid.getStore();
+		var rec = Ext.create(gridStore.model, {text: ''});
+		var rowEditor = grid.editingPlugin;
+		rowEditor.cancelEdit();
+		gridStore.insert(0, rec);
+		rowEditor.startEdit(rec, 0);
 	}
-	
 });

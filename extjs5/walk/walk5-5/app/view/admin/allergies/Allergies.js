@@ -19,7 +19,8 @@ Ext.define("PatientChart.view.admin.allergies.Allergies", {
 	
 	tools: [{
 		xtype: 'tool',
-		type: 'plus'
+		type: 'plus',
+		callback: 'onAddRecord'
 	}, {
 		xtype: 'tool',
 		type: 'minus'
@@ -32,13 +33,14 @@ Ext.define("PatientChart.view.admin.allergies.Allergies", {
         {
             xtype: 'grid',
             header: false,
+            reference: 'grid',
             store: 'Allergies',
             plugins: [
             	{
             		ptype: 'rowediting',
             		listeners: {
             			edit: 'onRowEditingEdit',
-            			canceledit: 'onRoweditingCancelEdit'
+            			canceledit: 'onRowEditingCancelEdit'
             		}
             	}
             ],
