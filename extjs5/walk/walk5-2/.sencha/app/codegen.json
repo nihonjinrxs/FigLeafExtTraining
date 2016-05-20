@@ -299,7 +299,7 @@
       "parameters": {
         "appName": "PatientChart",
         "baseClass": "Ext.data.Model",
-        "fields": "id:auto:null,patientId:auto:null,date:auto:null,height:auto:null,weight:auto:null,systolic:auto:null,diastolic:auto:null,exerciseminutes:auto:null,bmi:auto:null",
+        "fields": "id:int:null,patientId:int:null,date:date:null,height:float:null,weight:float:null,systolic:int:null,diastolic:int:null,exerciseminutes:int:null,bmi:auto:null",
         "modelFileName": "PatientDailyStat",
         "modelNamespace": "PatientChart.model",
         "name": "PatientDailyStat"

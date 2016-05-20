@@ -18,6 +18,7 @@ Ext.define('PatientChart.controller.Main', {
 
   models: [
     'Patient',
+    'PatientDailyStat',
     'Allergy',
     'BillingCode',
     'PreExistingCondition'
