@@ -7,6 +7,8 @@ Ext.define('PatientChart.view.patientinfo.graphs.PatientStats', {
         'Ext.grid.column.Number',
         'Ext.form.field.Date',
         'Ext.form.field.Number',
+        'Ext.grid.feature.GroupingSummary',
+        'Ext.grid.feature.Summary',
         'PatientChart.view.patientinfo.graphs.PatientStatsController'
     ],
     controller: 'patientinfo-graphs-patientstats',
@@ -15,6 +17,14 @@ Ext.define('PatientChart.view.patientinfo.graphs.PatientStats', {
     bind: {
         store: '{PatientDailyStats}'
     },
+    features: [{
+        ftype: 'groupingsummary',
+        groupHeaderTpl: [ '{[Ext.String.capitalize(values.columnName)]}: ' +
+            '{name} ({[values.children.length]})' ]
+    }, {
+        ftype: 'summary',
+        dock: 'bottom'
+    }],
     columns: [{
             xtype: 'datecolumn',
             dataIndex: 'date',
@@ -32,8 +42,10 @@ Ext.define('PatientChart.view.patientinfo.graphs.PatientStats', {
             dataIndex: 'weight',
             text: 'W',
             align: 'right',
-            width: 75,
-            format: '000.0'
+            width: 85,
+            format: '000.0',
+            summaryType: 'average',
+            summaryRenderer: function(result) { return 'Avg: ' + result; }
         }, {
             text: 'Blood Pressure',
             columns: [
@@ -43,22 +55,25 @@ Ext.define('PatientChart.view.patientinfo.graphs.PatientStats', {
                     dataIndex: 'systolic',
                     text: 'Sys',
                     align: 'right',
-                    width: 75,
-                    format: '000'
+                    width: 85,
+                    format: '000',
+                    summaryType: 'average',
+                    summaryRenderer: function(result) { return 'Avg: ' + result; }
                 }, {
                     xtype: 'numbercolumn',
                     dataIndex: 'diastolic',
                     text: 'Dias',
                     align: 'right',
-                    width: 75,
+                    width: 85,
                     renderer: function(value, metadata, record, rowIndex, colIndex, store, view) {
                         if (value > 85) {
 
                             metadata.tdStyle = 'font-weight: bold; background-color: red; color: white';
                         }
                         return value;
-                    }
-
+                    },
+                    summaryType: 'average',
+                    summaryRenderer: function(result) { return 'Avg: ' + result; }
                 }
             ]
         }, {
@@ -66,7 +81,9 @@ Ext.define('PatientChart.view.patientinfo.graphs.PatientStats', {
             dataIndex: 'exerciseminutes',
             text: 'Exercise<br>(Mins)',
             align: 'right',
-            width: 75
+            width: 85,
+            summaryType: 'average',
+            summaryRenderer: function(result) { return 'Avg: ' + result; }
         }, {
             xtype: 'widgetcolumn',
             width: 120,

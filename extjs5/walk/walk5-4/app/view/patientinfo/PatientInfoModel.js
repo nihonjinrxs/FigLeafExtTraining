@@ -32,6 +32,7 @@ Ext.define('PatientChart.view.patientinfo.PatientInfoModel', {
 		PatientDailyStats: {
 			model: 'PatientChart.model.PatientDailyStat',
 			autoLoad: true,
+			groupField: 'month',
 			remoteFilter: true,
 			filters: [{
 				property: 'patientId',

@@ -39,6 +39,11 @@ Ext.define('PatientChart.model.PatientDailyStat', {
             var obese = Math.round(3.71 * data.height);
             return [maxweight, data.weight, obese];
         }
+    }, {
+        name: 'month',
+        calculate: function(data) {
+            return Ext.Date.format(data.date, 'Y-m');
+        }
     }],
     proxy: {
         type: 'rest',
