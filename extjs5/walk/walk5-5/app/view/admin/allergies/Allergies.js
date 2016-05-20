@@ -23,7 +23,11 @@ Ext.define("PatientChart.view.admin.allergies.Allergies", {
 		callback: 'onAddRecord'
 	}, {
 		xtype: 'tool',
-		type: 'minus'
+		type: 'minus',
+		callback: 'onDeleteRecords',
+		bind: {
+			disabled: '{!selectedRecord}'
+		}
 	}, {
 		xtype: 'tool',
 		type: 'refresh'
@@ -32,8 +36,11 @@ Ext.define("PatientChart.view.admin.allergies.Allergies", {
     items:[
         {
             xtype: 'grid',
-            header: false,
             reference: 'grid',
+            bind: {
+            	selection: '{selectedRecord}'
+            },
+            header: false,
             store: 'Allergies',
             plugins: [
             	{
