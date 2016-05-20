@@ -1,11 +1,11 @@
 Ext.define('PatientChart.model.Patient', {
     extend: 'Ext.data.Model',
-    
+    requires: [ 'Ext.data.field.Date' ],
     fields: [
-        { name: 'id', type: 'auto' },
+        { name: 'id', type: 'int' },
         { name: 'firstname', type: 'auto' },
         { name: 'lastname', type: 'auto' },
-        { name: 'dob', type: 'auto' },
+        { name: 'dob', type: 'date', dateFormat: 'F, j Y H:i:s' },
         { name: 'gender', type: 'auto' },
         { name: 'email', type: 'auto' },
         { name: 'address', type: 'auto' },
@@ -17,5 +17,11 @@ Ext.define('PatientChart.model.Patient', {
         { name: 'preexistingconditions', type: 'auto' },
         { name: 'notes', type: 'auto' }
 
-    ]
+    ],
+    validators: {
+        firstname: 'presence',
+        lastname: 'presence',
+        dob: 'presence',
+        email: 'presence'
+    }
 });
