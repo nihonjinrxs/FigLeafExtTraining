@@ -62,6 +62,25 @@ Ext.define("PatientChart.view.admin.allergies.Allergies", {
                         allowBlank: false
                     }
                 }
+            ],
+            dockedItems: [
+            	{
+            		xtype: 'toolbar',
+            		dock: 'bottom',
+            		height: 30,
+            		items: [
+            			{
+            				xtype: 'tbtext',
+            				flex: 1,
+            				reference: 'lastupdated',
+            				bind: {
+            					text: 'Updated: ' +
+            						'{grid.selection.updatedate:date(\'m/d/Y H:i a\')}' +
+            						' by {grid.selection.updateuser}'
+            				}
+            			}
+            		]
+            	}
             ]
         }
     ]
