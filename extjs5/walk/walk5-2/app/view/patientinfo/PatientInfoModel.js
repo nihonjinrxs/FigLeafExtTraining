@@ -2,6 +2,10 @@ Ext.define('PatientChart.view.patientinfo.PatientInfoModel', {
 	extend: 'Ext.app.ViewModel',
 	alias: 'viewmodel.patientinfo-patientinfo',
 
+	requires: [
+		'PatientChart.model.PatientDailyStat'
+	],
+
 	data: {
 		searchFilter: '',
 		patient: null,
@@ -27,8 +31,22 @@ Ext.define('PatientChart.view.patientinfo.PatientInfoModel', {
 					rootProperty: 'records'
 				}
 			}
+		},
+		PatientDailyStats: {
+			model: 'PatientChart.model.PatientDailyStat',
+			autoLoad: true,
+			remoteFilter: true,
+			filters: [{
+				property: 'patientId',
+				value: '{patient.id}'
+			}],
+			sorters: [{
+				property: 'date',
+				direction: 'ASC'
+			}],
+			listeners: {
+				load: 'onPatientDailyStatsLoad'
+			}
 		}
-
-		// Exercise 5-2, step 15
 	}
 });

@@ -29,6 +29,10 @@ Ext.define('PatientChart.view.patientinfo.PatientInfoController', {
 				this.getViewModel().set('patient', record);
 			},
 		});
+	},
+
+	onPatientDailyStatsLoad: function(store) {
+		this.getViewModel().set('selectedStat', store.last());
 	}
 
 });
