@@ -8,6 +8,7 @@ Ext.define('PatientChart.view.research.clinicaltrials.ClinicalTrialsModel', {
 			model: 'PatientChart.model.ClinicalTrial',
 			remoteFilter: true,
 			remoteSort: true,
+			buffered: true,
 			listeners: {
 				load: 'onClinicalTrialsLoad'
 			}

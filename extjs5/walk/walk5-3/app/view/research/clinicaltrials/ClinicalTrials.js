@@ -56,6 +56,7 @@ Ext.define("PatientChart.view.research.clinicaltrials.ClinicalTrials", {
                     text: 'Rel'
                 }
             ],
+            /*
             dockedItems: [
 	            {
 	            	xtype: 'pagingtoolbar',
@@ -66,6 +67,7 @@ Ext.define("PatientChart.view.research.clinicaltrials.ClinicalTrials", {
 	            	}
 	            }
             ]
+            */
         }
     ],
 
