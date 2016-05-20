@@ -12,7 +12,8 @@ Ext.define('PatientChart.controller.Main', {
     'PatientChart.view.admin.allergies.Allergies',
     'PatientChart.view.admin.billingcodes.BillingCodes',
     'PatientChart.view.admin.preexistingconditions.PreExistingConditions',
-    'PatientChart.view.research.clinicaltrials.ClinicalTrials'
+    'PatientChart.view.research.clinicaltrials.ClinicalTrials',
+    'PatientChart.view.patientinfo.Chooser'
   ],
 
   models: [
@@ -100,9 +101,13 @@ Ext.define('PatientChart.controller.Main', {
   },
 
   onPatientSearch: function() {
-
     this.setCurrentPerspective('patientinfoperspective');
-   
+
+    this.getCenterRegion().add({
+      xtype: 'patientsearchwindow',
+      modal: true,
+      constrain: true
+    }).show();
   },
 
   onLoadPatientRecord: function(id, tab) {
