@@ -43,7 +43,13 @@ Ext.define('PatientChart.view.patientinfo.Chooser',{
                     xtype: 'gridcolumn',
                     dataIndex: 'email',
                     text: 'E-mail',
-                    width: 150
+                    width: 150,
+                    renderer: function(value) {
+                        return Ext.String.format(
+                            '<a href="mailto:{0}" target="_blank">{0}</a>',
+                            value
+                        );
+                    }
                 }
             ]
         }
