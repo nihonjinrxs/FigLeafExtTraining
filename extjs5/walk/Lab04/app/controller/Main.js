@@ -12,6 +12,8 @@ Ext.define('PatientChart.controller.Main', {
     'PatientChart.view.admin.allergies.Allergies',
     'PatientChart.view.admin.billingcodes.BillingCodes',
     'PatientChart.view.admin.preexistingconditions.PreExistingConditions',
+    'PatientChart.view.research.Research',
+    'PatientChart.view.research.hospitals.Hospitals',
     'PatientChart.view.research.clinicaltrials.ClinicalTrials'
   ],
 
@@ -19,7 +21,8 @@ Ext.define('PatientChart.controller.Main', {
     'Patient',
     'Allergy',
     'BillingCode',
-    'PreExistingCondition'
+    'PreExistingCondition',
+    'ClinicalTrial'
   ],
 
   stores: [
@@ -59,7 +62,10 @@ Ext.define('PatientChart.controller.Main', {
       action: 'onResearchPerspective',
       before: 'onAuthenticate'
     },
-
+    'research/:xtype': {
+      action: 'onResearchViewWindow',
+      before: 'onAuthenticate'
+    },
 
     'logout' : 'onLogout'
   },
@@ -106,8 +112,21 @@ Ext.define('PatientChart.controller.Main', {
     this.setCurrentPerspective('adminperspective');
   },
 
+  onResearchViewWindow: function(xtype) {
+    this.setCurrentPerspective('researchperspective');
+
+    var win = Ext.ComponentQuery.query(xtype);
+    if (win.length == 1) {
+      this.focusWin(win[0]);
+    } else {
+      this.getCenterRegion().add({
+        xtype: xtype
+      }).show();
+    }
+  },
+
   onResearchPerspective: function() {
-    this.setCurrentPerspective('ressearchperspective');
+    this.setCurrentPerspective('researchperspective');
   },
 
   onPatientSearch: function() {

@@ -1,4 +1,4 @@
-Ext.define('OatientChart.model.BillingCode', {
+Ext.define('PatientChart.model.BillingCode', {
 	extend: 'Ext.data.Model',
 
 	requires: [

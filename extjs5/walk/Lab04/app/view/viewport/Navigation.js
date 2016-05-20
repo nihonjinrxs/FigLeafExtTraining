@@ -108,10 +108,12 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 				width: 150,
 				items: [{
 					text: 'Clinical Trials',
-					iconCls: 'injection'
+					iconCls: 'injection',
+					itemId: 'clinicaltrials'
 				}, {
 					text: 'Hospital Stats',
-					iconCls: 'hospital'
+					iconCls: 'hospital',
+					itemId: 'hospitalstatswindow'
 				}],
 				listeners: {
 					click: 'onResearchMenuItemClick'
