@@ -50,8 +50,26 @@ Ext.define('PatientChart.view.patientinfo.Chooser',{
                             value
                         );
                     }
+                },
+                {
+                    xtype: 'actioncolumn',
+                    width: 30,
+                    menuDisabled: true,
+                    items: [
+                        {
+                            icon: 'resources/images/document_edit.png',
+                            tooltip: 'Edit',
+                            handler: function(grid, rowIndex, colIndex, item,
+                                                event, record, row) {
+                                grid.fireEvent('itemdblclick', grid, record, item);
+                            }
+                        }
+                    ]
                 }
-            ]
+            ],
+            listeners: {
+                itemdblclick: 'onPatientSelect'
+            }
         }
     ]
 });
