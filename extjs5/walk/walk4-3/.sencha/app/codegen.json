@@ -275,7 +275,7 @@
       "parameters": {
         "appName": "PatientChart",
         "baseClass": "Ext.data.Model",
-        "fields": "id:auto:null,firstname:auto:null,lastname:auto:null,date:auto:null,gender:auto:null,email:auto:null,address:auto:null,city:auto:null,state:auto:null,zip:auto:null,photoUrl:auto:null,allergies:auto:null,preexistingconditions:auto:null,notes:auto:null",
+        "fields": "id:auto:null,firstname:auto:null,lastname:auto:null,dob:auto:null,gender:auto:null,email:auto:null,address:auto:null,city:auto:null,state:auto:null,zip:auto:null,photoUrl:auto:null,allergies:auto:null,preexistingconditions:auto:null,notes:auto:null",
         "modelFileName": "Patient",
         "modelNamespace": "PatientChart.model",
         "name": "Patient"
