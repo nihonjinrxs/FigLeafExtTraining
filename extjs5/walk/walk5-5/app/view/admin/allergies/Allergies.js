@@ -30,7 +30,8 @@ Ext.define("PatientChart.view.admin.allergies.Allergies", {
 		}
 	}, {
 		xtype: 'tool',
-		type: 'refresh'
+		type: 'refresh',
+		callback: 'onRefresh'
 	}],
 
     items:[

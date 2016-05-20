@@ -72,5 +72,12 @@ Ext.define('PatientChart.view.admin.allergies.AllergiesController', {
 	        }
 	    );
 
+	},
+	onRefresh: function(tool, event, owner, eventOptions) {
+		var grid = this.lookupReference('grid');
+		var gridStore = grid.getStore();
+		var rowEditor = grid.editingPlugin;
+		rowEditor.cancelEdit();
+		gridStore.load();
 	}
 });
