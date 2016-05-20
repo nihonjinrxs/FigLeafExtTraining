@@ -3,7 +3,8 @@ Ext.define("PatientChart.view.admin.allergies.Allergies", {
 	alias: 'widget.allergies',
 	requires: [
 		'PatientChart.view.admin.allergies.AllergiesModel',
-		'PatientChart.view.admin.allergies.AllergiesController'
+		'PatientChart.view.admin.allergies.AllergiesController',
+		'Ext.grid.plugin.RowEditing'
 	],
 	controller: "admin-allergies-allergies",
 	viewModel: {
@@ -32,6 +33,15 @@ Ext.define("PatientChart.view.admin.allergies.Allergies", {
             xtype: 'grid',
             header: false,
             store: 'Allergies',
+            plugins: [
+            	{
+            		ptype: 'rowediting',
+            		listeners: {
+            			edit: 'onRowEditingEdit',
+            			canceledit: 'onRoweditingCancelEdit'
+            		}
+            	}
+            ],
             columns: [
                 {
                     xtype: 'gridcolumn',
