@@ -13,7 +13,9 @@ Ext.define("PatientChart.view.patientinfo.graphs.Graphs", {
 		patientstats: {
 			viewTemplate: {
 				title: 'Measurements',
-				// step 33
+				items: [
+					{ xtype: 'patientstatsgrid' }
+				],
 				tools: [{
 					xtype: 'tool',
 					type: 'plus'
