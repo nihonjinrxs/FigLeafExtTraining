@@ -12,5 +12,40 @@ Ext.define('PatientChart.view.patientinfo.Chooser',{
     width: 700,
     height: 400,
     layout: 'fit',
-    title: 'Select a Patient'
+    title: 'Select a Patient',
+
+    items: [
+        {
+            xtype: 'grid',
+            header: false,
+            bind: {
+                store: '{Patients}'
+            },
+            columns: [
+                { xtype: 'rownumberer' },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'lastname',
+                    text: 'Last Name'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'firstname',
+                    text: 'First Name'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'address',
+                    text: 'Address',
+                    flex: 1
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'email',
+                    text: 'E-mail',
+                    width: 150
+                }
+            ]
+        }
+    ]
 });
