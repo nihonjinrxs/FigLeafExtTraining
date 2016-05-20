@@ -15,7 +15,8 @@ Ext.define('PatientChart.controller.Main', {
   ],
 
   models: [
-    'Patient'
+    'Patient',
+    'Allergy'
   ],
 
   refs: {

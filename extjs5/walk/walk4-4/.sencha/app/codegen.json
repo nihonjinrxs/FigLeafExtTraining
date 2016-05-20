@@ -280,6 +280,18 @@
         "modelNamespace": "PatientChart.model",
         "name": "Patient"
       }
+    },
+    "app/model/Allergy.js": {
+      "source": "{modelFileName}.js.tpl.merge",
+      "version": "31d5356142a167c72422f7902f19df3c583f3249",
+      "parameters": {
+        "appName": "PatientChart",
+        "baseClass": "Ext.data.Model",
+        "fields": "id:int:null,text:string:null,updateuser:string:null,updatedate:date:null",
+        "modelFileName": "Allergy",
+        "modelNamespace": "PatientChart.model",
+        "name": "Allergy"
+      }
     }
   }
 }
