@@ -55,6 +55,16 @@ Ext.define("PatientChart.view.research.clinicaltrials.ClinicalTrials", {
                     dataIndex: 'score',
                     text: 'Rel'
                 }
+            ],
+            dockedItems: [
+	            {
+	            	xtype: 'pagingtoolbar',
+	            	dock: 'bottom',
+	            	layout: { pack: 'center' },
+	            	bind: {
+	            		store: '{ClinicalTrials}'
+	            	}
+	            }
             ]
         }
     ],
