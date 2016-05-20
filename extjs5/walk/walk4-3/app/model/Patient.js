@@ -22,6 +22,16 @@ Ext.define('PatientChart.model.Patient', {
         firstname: 'presence',
         lastname: 'presence',
         dob: 'presence',
-        email: 'presence'
+        gender: [
+            { type: 'presence' },
+            {
+                type: 'inclusion',
+                list: [ 'Male', 'Female' ]
+            }
+        ],
+        email: [
+            { type: 'presence' },
+            { type: 'email' }
+        ]
     }
 });
