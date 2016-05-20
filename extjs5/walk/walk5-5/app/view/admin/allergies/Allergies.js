@@ -25,5 +25,25 @@ Ext.define("PatientChart.view.admin.allergies.Allergies", {
 	}, {
 		xtype: 'tool',
 		type: 'refresh'
-	}]
+	}],
+
+    items:[
+        {
+            xtype: 'grid',
+            header: false,
+            store: 'Allergies',
+            columns: [
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'text',
+                    text: 'Label',
+                    flex: 1,
+                    editor: {
+                        xtype: 'textfield',
+                        allowBlank: false
+                    }
+                }
+            ]
+        }
+    ]
 });
