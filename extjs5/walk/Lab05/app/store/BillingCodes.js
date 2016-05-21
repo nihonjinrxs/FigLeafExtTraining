@@ -7,6 +7,7 @@ Ext.define('PatientChart.store.BillingCodes', {
 
     model: 'PatientChart.model.BillingCode',
     autoLoad: true,
+    buffered: true,
     sorters: {
         property: 'text'
     },
