@@ -3,7 +3,8 @@ Ext.define('PatientChart.view.patientinfo.PatientInfoController', {
 	alias: 'controller.patientinfo-patientinfo',
 	
 	requires: [
-		'Ext.ux.imageviewer.ImageViewer'
+		'Ext.ux.imageviewer.ImageViewer',
+		'Ext.ux.panel.PDF'
 	],
 
 	config: {
@@ -16,7 +17,13 @@ Ext.define('PatientChart.view.patientinfo.PatientInfoController', {
 	},
 
 	onShowPdf: function(tabpanelview, dv, title, url, record) {
-		
+		tabpanelview.add({
+			xtype: 'pdfpanel',
+			title: title,
+			closable: true,
+			pageScale: 1,
+			src: 'http://webapps.figleaf.com/webservices/media/' + url
+		});
 	},
 
 	onShowImage: function(tabpanelview, dv, title, url, record) {

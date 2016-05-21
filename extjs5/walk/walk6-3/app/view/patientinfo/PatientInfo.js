@@ -32,7 +32,7 @@ Ext.define("PatientChart.view.patientinfo.PatientInfo", {
 		region: 'center',
 		plain: true,
 		removePanelHeader: false,
-		
+		deferredRender: false,
 		tabPosition: 'bottom',
 		listeners: {
 			tabchange: 'onPatientInfoTabChange'
