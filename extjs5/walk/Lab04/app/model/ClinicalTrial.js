@@ -3,11 +3,14 @@ Ext.define('PatientChart.model.ClinicalTrial', {
 
     requires: [
         'Ext.data.field.Integer',
+        'Ext.data.field.Number',
         'Ext.data.field.String',
+        'Ext.data.field.Date',
         'Ext.data.proxy.Rest',
-        'Ext.data.reader.Json',
-        'Ext.data.field.Date'
+        'Ext.data.reader.Json'
     ],
+
+    idProperty: 'nct_id',
 
     fields: [
         {
@@ -19,7 +22,7 @@ Ext.define('PatientChart.model.ClinicalTrial', {
             name: 'title'
         },
         {
-            type: 'int',
+            type: 'float',
             name: 'score'
         },
         {
@@ -45,7 +48,7 @@ Ext.define('PatientChart.model.ClinicalTrial', {
         {
             type: 'date',
             name: 'last_changed',
-            dateFormat: 'F d, Y'
+            dateFormat: 'F j, Y'
         }
     ],
 

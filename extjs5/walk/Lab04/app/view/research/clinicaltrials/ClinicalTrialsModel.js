@@ -6,10 +6,6 @@ Ext.define('PatientChart.view.research.clinicaltrials.ClinicalTrialsModel', {
         'PatientChart.model.ClinicalTrial'
     ],
 
-    data: {
-        
-    },
-
     stores: {
     	ClinicalTrials: {
     		model: 'PatientChart.model.ClinicalTrial',
