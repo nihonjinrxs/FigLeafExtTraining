@@ -1,8 +1,19 @@
 Ext.define('PatientChart.view.research.hospitals.HospitalsModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.research-hospitals-hospitals',
-    data: {
-        name: 'PatientChart'
+    
+    data: {},
+    
+    stores: {
+    	StateFilters: {
+    		type: 'tree',
+    		root: { expanded: false },
+    		proxy: {
+    			type: 'ajax',
+    			url: 'http://webapps.figleaf.com/webservices/hospitalresearch.cfc?method=getStateFilters',
+    			reader: { type: 'json' }
+    		}
+    	}
     }
 
 });
