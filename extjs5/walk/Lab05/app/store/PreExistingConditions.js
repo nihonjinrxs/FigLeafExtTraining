@@ -7,6 +7,7 @@ Ext.define('PatientChart.store.PreExistingConditions', {
     ],
 
     autoLoad: true,
+    buffered: true,
     model: 'PatientChart.model.PreExistingCondition',
     sorters: {
         property: 'text'
