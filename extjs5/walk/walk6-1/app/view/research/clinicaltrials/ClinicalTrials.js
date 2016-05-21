@@ -28,7 +28,8 @@ Ext.define("PatientChart.view.research.clinicaltrials.ClinicalTrials", {
 		region: 'center',
 		header: false,
 		bind: {
-			store: '{ClinicalTrials}'
+			store: '{ClinicalTrials}',
+			selection: '{selectedTrial}'
 		},
 		columns: [
 		{
@@ -68,6 +69,39 @@ Ext.define("PatientChart.view.research.clinicaltrials.ClinicalTrials", {
 			}
 		]
 		*/
+	}, {
+		xtype: 'panel',
+		flex: 1,
+		region: 'south',
+		split: true,
+		height: 150,
+		bodyPadding: 5,
+		collapsible: true,
+		title: 'Details',
+		bind: {
+			data: '{selectedTrial}'
+		},
+		tpl: [
+			'<tpl if="title">',
+			'<div class="ctTitle">{title}</div>',
+			'<div>',
+				'<span class="ctPrompt">Status:</span>',
+				'{status}',
+			'</div>',
+			'<div>',
+				'<span class="ctPrompt">Updated:</span>',
+				'{last_changed:date}',
+			'</div>',
+			'<div>',
+				'<span class="ctPrompt">Conditions:</span>',
+				'{condition_summary}',
+			'</div>',
+			'<div>',
+				'<span class="ctPrompt">Intervention:</span>',
+				'{intervention_summary}',
+			'</div>',
+			'</tpl>'			
+		]
 	}]
 
 });

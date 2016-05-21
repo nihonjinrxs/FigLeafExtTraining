@@ -4,7 +4,9 @@ Ext.define('PatientChart.view.research.clinicaltrials.ClinicalTrialsModel', {
 	requires: [
 		'PatientChart.model.ClinicalTrial'
 	],
-
+	data: {
+		selectedTrial: null
+	},
 	stores: {
 		ClinicalTrials: {
 			type: 'buffered',
