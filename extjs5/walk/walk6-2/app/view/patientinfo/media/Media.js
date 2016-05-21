@@ -5,5 +5,20 @@ Ext.define("PatientChart.view.patientinfo.media.Media",{
     alias: 'widget.patientmedia',
     controller: "patientinfo-media-media",
 
-    html: "Hello, World!!"
+    layout: 'fit',
+
+    items: [
+    	{
+    		xtype: 'dataview',
+    		bind: {
+    			store: '{PatientMediaAssets}'
+    		},
+    		scrollable: true,
+    		itemTpl: [
+    			'<img src="http://webapps.figleaf.com/webservices/media/{filepreviewimageurl}">',
+    			'<strong>{title}<br/>{[Ext.Date.format(values.date,"m/d/Y @ H:i")]}</strong>'
+    		],
+    		itemCls: 'patientMediaAsset'
+    	}
+    ]
 });
