@@ -99,6 +99,20 @@ Ext.define("PatientChart.view.research.clinicaltrials.ClinicalTrials", {
 			'{intervention_summary}',
 			'</div>',
 			'</tpl>'
+		],
+		dockedItems: [
+			{
+				xtype: 'toolbar',
+				dock: 'bottom',
+				bind: { disabled: '{!selectedTrial}' },
+				layout: { pack: 'center' },
+				items: [
+					{
+						text: 'See More Details',
+						handler: 'displayTrialWebsite'
+					}
+				]
+			}
 		]
 	}]
 
