@@ -46,9 +46,12 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 	}],
 
 	items: [
-	
-
-	{
+		{
+			xtype: 'component',
+			width: 150,
+			height: 133,
+			cls: 'drextlogo'
+		}, {
 			text: 'Administer',
 			iconCls: 'btnAdminIcon',
 			itemId: 'btnAdminperspective',
