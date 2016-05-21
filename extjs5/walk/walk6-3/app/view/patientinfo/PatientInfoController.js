@@ -2,6 +2,9 @@ Ext.define('PatientChart.view.patientinfo.PatientInfoController', {
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.patientinfo-patientinfo',
 	
+	requires: [
+		'Ext.ux.imageviewer.ImageViewer'
+	],
 
 	config: {
 		control: {
@@ -17,7 +20,14 @@ Ext.define('PatientChart.view.patientinfo.PatientInfoController', {
 	},
 
 	onShowImage: function(tabpanelview, dv, title, url, record) {
-		
+		tabpanelview.add({
+			xtype: 'extimageviewer',
+			title: title,
+			closable: true,
+			src: 'http://webapps.figleaf.com/webservices/media/' + url,
+			imageTitle: record.get('title') + ' on ' +
+				Ext.Date.format(record.get('date'), "m/d/Y @ H:i")
+		});
 	},
 
 	onPatientInfoTabChange: function(tabpanel, newCard, oldCard, eOpts) {
