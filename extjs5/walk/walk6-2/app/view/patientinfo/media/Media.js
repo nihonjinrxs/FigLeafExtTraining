@@ -18,7 +18,10 @@ Ext.define("PatientChart.view.patientinfo.media.Media",{
     			'<img src="http://webapps.figleaf.com/webservices/media/{filepreviewimageurl}">',
     			'<strong>{title}<br/>{[Ext.Date.format(values.date,"m/d/Y @ H:i")]}</strong>'
     		],
-    		itemCls: 'patientMediaAsset'
+    		itemCls: 'patientMediaAsset',
+    		listeners: {
+    			'itemdblclick': 'onShowMediaAsset'
+    		}
     	}
     ]
 });

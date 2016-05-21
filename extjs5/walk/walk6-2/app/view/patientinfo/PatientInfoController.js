@@ -2,7 +2,14 @@ Ext.define('PatientChart.view.patientinfo.PatientInfoController', {
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.patientinfo-patientinfo',
 
-
+	config: {
+		control: {
+			'tabpanel': {
+				'showpdf': 'onShowPdf',
+				'showjpg': 'onShowImage'
+			}
+		}
+	},
 
 	onPatientInfoTabChange: function(tabpanel, newCard, oldCard, eOpts) {
 		var hash = location.hash.substring(1, location.hash.length);
@@ -14,7 +21,6 @@ Ext.define('PatientChart.view.patientinfo.PatientInfoController', {
 		);
 		this.redirectTo(newHash);
 	},
-
 
 	loadPatientRecord: function(patientId) {
 
@@ -37,6 +43,12 @@ Ext.define('PatientChart.view.patientinfo.PatientInfoController', {
 		this.getViewModel().set('selectedStat', store.last());
 	},
 
+	onShowPdf: function(tabpanelview, dataview, title, url, record) {
+		Ext.Msg.alert('Show PDF', url);
+	},
 
+	onShowImage: function(tabpanelview, dataview, title, url, record) {
+		Ext.Msg.alert('Show Image', url);
+	}
 
 });
