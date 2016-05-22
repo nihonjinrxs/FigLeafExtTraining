@@ -58,7 +58,10 @@ Ext.define('PatientChart.view.admin.users.Users',{
                         maxLength: 100
                     }
                 }
-            ]
+            ],
+            listeners: {
+                'edit': 'onNodeEdit'
+            }
         }
     ]
 });
