@@ -20,5 +20,45 @@ Ext.define('PatientChart.view.admin.users.Users',{
     height: 500,
     title: 'Edit Users',
     autoShow: true,
-    constrain: true
+    constrain: true,
+
+    items: [
+        {
+            xtype: 'treepanel',
+            bind: {
+                selection: '{selectedNode}',
+                store: '{Users}'
+            },
+            viewConfig: {
+                plugins: [
+                    {
+                        ptype: 'treeviewdragdrop',
+                        appendOnly: true,
+                        nodeHighlightOnDrop: true,
+                        nodeHighlightOnRepair: true
+                    }
+                ]
+            },
+            plugins: [
+                {
+                    ptype: 'cellediting',
+                    clicksToEdit: 2
+                }
+            ],
+            columns: [
+                {
+                    xtype: 'treecolumn',
+                    dataIndex: 'text',
+                    text: 'Departments/Users',
+                    flex: 1,
+                    editor: {
+                        xtype: 'textfield',
+                        allowBlank: false,
+                        allowOnlyWhitespace: false,
+                        maxLength: 100
+                    }
+                }
+            ]
+        }
+    ]
 });
