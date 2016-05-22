@@ -10,7 +10,10 @@ Ext.define('PatientChart.view.research.hospitals.HospitalsController', {
 			serverFilters = [],
 			filters = {};
 
-		var nodes = this.lookupReference('statefiltertree').getChecked();
+		var nodes = Ext.Array.merge(
+			this.lookupReference('statefiltertree').getChecked(),
+			this.lookupReference('proceduresfiltertree').getChecked()
+		);
 
 		for (var i = 0; i < nodes.length; i++) {
 			
