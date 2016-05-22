@@ -28,6 +28,20 @@ Ext.define('PatientChart.view.research.hospitals.HospitalsModel', {
 			pageSize: 500,
 			remoteFilter: true,
 			model: 'PatientChart.model.HospitalStat'
+		},
+
+		ProcedureFilters: {
+			type: 'tree',
+			root: {
+				expanded: true
+			},
+			proxy: {
+				type: 'ajax',
+				url: 'http://webapps.figleaf.com/webservices/hospitalresearch.cfm?method=getProcedureFilters',
+				reader: {
+					type: 'json'
+				}
+			}
 		}
 
 	}
