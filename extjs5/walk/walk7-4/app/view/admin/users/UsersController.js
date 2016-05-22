@@ -17,5 +17,21 @@ Ext.define('PatientChart.view.admin.users.UsersController', {
             return 1;
         });
 
-    }    
+    },
+
+    onDeleteNode: function(button, event) {
+    	var selectedNode = this.getViewModel().get('selectedNode');
+    	selectedNode.erase();
+    },
+
+    onAddNode: function(button, event) {
+    	var selectedNode = this.getViewModel().get('selectedNode');
+    	if (selectedNode.id === 'root') {
+    		var n = Ext.create('PatientChart.model.user.Department', { leaf: false });
+    	} else {
+    		var n = Ext.create('PatientChart.model.user.User', { leaf: true });
+    	}
+    	selectedNode.insertChild(0, n);
+    	selectedNode.expand();
+    }
 });

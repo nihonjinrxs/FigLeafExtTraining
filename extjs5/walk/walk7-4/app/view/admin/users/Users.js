@@ -59,6 +59,25 @@ Ext.define('PatientChart.view.admin.users.Users',{
                     }
                 }
             ],
+            dockedItems: [
+                {
+                    xtype: 'toolbar',
+                    dock: 'bottom',
+                    defaults: { flex: 1 },
+                    items: [
+                        {
+                            text: 'Add',
+                            bind: { disabled: '{!selectedNode}' },
+                            handler: 'onAddNode'
+                        },
+                        {
+                            text: 'Delete',
+                            bind: { disabled: '{!selectedNode}' },
+                            handler: 'onDeleteNode'
+                        }
+                    ]
+                }
+            ],
             listeners: {
                 'edit': 'onNodeEdit'
             }
