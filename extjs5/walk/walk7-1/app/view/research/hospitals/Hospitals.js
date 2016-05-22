@@ -40,6 +40,9 @@ Ext.define("PatientChart.view.research.hospitals.Hospitals", {
 					reference: 'statefiltertree',
 					bind: {
 						store: '{StateFilters}'
+					},
+					listeners: {
+						checkchange: 'onTreepanelCheckChange'
 					}
 				}
 			]
