@@ -26,7 +26,8 @@ Ext.define("PatientChart.view.research.hospitals.Hospitals", {
 		collapsible: true,
 		header: false,
 		title: 'Filter',
-		items: [{
+		items: [
+			{
 				xtype: 'treepanel',
 				reference: 'statefiltertree',
 				title: 'By State',
@@ -38,8 +39,20 @@ Ext.define("PatientChart.view.research.hospitals.Hospitals", {
 				listeners: {
 					checkchange: 'onTreepanelCheckChange'
 				}
+			},
+			{
+				xtype: 'treepanel',
+				reference: 'proceduresfiltertree',
+				title: 'By Procedure',
+				rootVisible: false,
+				useArrows: true,
+				bind: {
+					store: '{ProcedureFilters}'
+				},
+				listeners: {
+					checkchange: 'onTreepanelCheckChange'
+				}
 			}
-
 		]
 	}, {
 		xtype: 'gridpanel',
@@ -117,7 +130,7 @@ Ext.define("PatientChart.view.research.hospitals.Hospitals", {
 			format: '0,000',
 			summaryType: 'sum',
 			summaryRenderer: function(value, summaryData, dataIndex) {
-				return "Total: " + value
+				return "Total: " + value;
 			}
 		}]
 	}]
