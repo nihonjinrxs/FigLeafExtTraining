@@ -58,7 +58,14 @@ Ext.define('PatientChart.view.admin.users.UsersController', {
                 leaf: true
             });
         }
-        selectedNode.insertChild(0, n);
+        console.log(selectedNode);
+        console.log(selectedNode.get('nodetype'));
+        if (selectedNode.get('nodetype') === 'user') {
+            selectedNode.parentNode.insertChild(0, n);
+            selectedNode.parentNode.expand();
+        } else {
+            selectedNode.insertChild(0, n);
+        }
         selectedNode.expand();
     }
 
