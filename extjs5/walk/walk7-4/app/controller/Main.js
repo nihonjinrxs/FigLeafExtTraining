@@ -12,6 +12,7 @@ Ext.define('PatientChart.controller.Main', {
     'PatientChart.view.admin.allergies.Allergies',
     'PatientChart.view.admin.billingcodes.BillingCodes',
     'PatientChart.view.admin.preexistingconditions.PreExistingConditions',
+    'PatientChart.view.admin.users.Users',
     'PatientChart.view.research.clinicaltrials.ClinicalTrials',
     'PatientChart.view.patientinfo.Chooser',
     'PatientChart.view.research.Research'
