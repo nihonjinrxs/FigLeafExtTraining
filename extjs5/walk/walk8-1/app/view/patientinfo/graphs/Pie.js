@@ -6,7 +6,8 @@ Ext.define('PatientChart.view.patientinfo.graphs.Pie',{
     requires: [
         'PatientChart.view.patientinfo.graphs.PieController',
         'Ext.chart.series.Pie',
-        'Ext.chart.interactions.ItemHighlight'
+        'Ext.chart.interactions.ItemHighlight',
+        'Ext.chart.interactions.Rotate'
     ],
 
     controller: 'patientinfo-graphs-pie',
@@ -22,5 +23,6 @@ Ext.define('PatientChart.view.patientinfo.graphs.Pie',{
         },
         xField: 'qty',
         donut: 30
-    }
+    },
+    interactions: ['rotate']
 });
