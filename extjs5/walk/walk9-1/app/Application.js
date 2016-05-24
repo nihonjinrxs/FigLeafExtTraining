@@ -22,7 +22,9 @@ Ext.define('PatientChart.Application', {
 
 	launch: function() {
 
-		
+		Ext.state.Manager.setProvider(
+			Ext.create('Ext.state.LocalStorageProvider')
+		);
 
 		Ext.create('PatientChart.view.viewport.Viewport');
 	}
