@@ -51,13 +51,17 @@ Ext.define("PatientChart.view.patientinfo.graphs.HeightWeight", {
 			type: 'line',
 			xField: 'datelabel',
 			yField: [ 'height' ],
-			smooth: true
+			smooth: true,
+			title: 'Height'
 		},
 		{
 			type: 'line',
 			xField: 'datelabel',
 			yField: [ 'weight' ],
-			smooth: true
+			smooth: true,
+			title: 'Weight'
 		}
-	]
+	],
+
+	legend: { docked: 'right' }
 });
