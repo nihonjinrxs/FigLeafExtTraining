@@ -59,9 +59,21 @@ Ext.define("PatientChart.view.patientinfo.graphs.HeightWeight", {
 			xField: 'datelabel',
 			yField: [ 'weight' ],
 			smooth: true,
-			title: 'Weight'
+			title: 'Weight',
+			marker: {
+				type: 'circle',
+				radius: 4
+			},
+			highlight: {
+				size: 7,
+				radius: 7
+			}
 		}
 	],
 
-	legend: { docked: 'right' }
+	legend: { docked: 'right' },
+
+	interactions: [
+		{ type: 'itemhighlight' }
+	]
 });
