@@ -9,5 +9,18 @@ Ext.define('PatientChart.view.patientinfo.graphs.Pie',{
         'Ext.chart.interactions.ItemHighlight'
     ],
 
-    controller: 'patientinfo-graphs-pie'
+    controller: 'patientinfo-graphs-pie',
+
+    bind: {
+        store: '{PatientDiet}'
+    },
+
+    series: {
+        type: 'pie',
+        label: {
+            field: 'label'
+        },
+        xField: 'qty',
+        donut: 30
+    }
 });
