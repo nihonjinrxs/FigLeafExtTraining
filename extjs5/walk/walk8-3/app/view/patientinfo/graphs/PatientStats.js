@@ -15,7 +15,8 @@ Ext.define('PatientChart.view.patientinfo.graphs.PatientStats', {
     header: false,
     title: 'Data',
     bind: {
-        store: '{PatientDailyStats}'
+        store: '{PatientDailyStats}',
+        selection: '{selectedStat}'
     },
     features: [{
         ftype: 'groupingsummary',
