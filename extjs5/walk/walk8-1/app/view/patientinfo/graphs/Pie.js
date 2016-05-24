@@ -22,7 +22,21 @@ Ext.define('PatientChart.view.patientinfo.graphs.Pie',{
             field: 'label'
         },
         xField: 'qty',
-        donut: 30
+        donut: 30,
+        tooltip: {
+            trackMouse: true,
+            renderer: function(record, data) {
+                var total = 0;
+                record.store.each(function(rec) {
+                    total += rec.get('qty');
+                });
+                this.setHtml(
+                    record.get('label') + ": " +
+                        Math.round(record.get('qty') / total * 100) + '%'
+                );
+            }
+        }
     },
-    interactions: ['rotate']
+    interactions: ['rotate'],
+    legend: true,
 });
