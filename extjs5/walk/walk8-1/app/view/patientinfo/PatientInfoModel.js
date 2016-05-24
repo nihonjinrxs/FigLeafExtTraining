@@ -67,6 +67,27 @@ Ext.define('PatientChart.view.patientinfo.PatientInfoModel', {
 					rootProperty: 'records'
 				}
 			}
+		},
+
+		PatientDiet: {
+			autoLoad: true,
+			fields: [
+				'label',
+				{
+					name: 'qty',
+					type: 'int'
+				}
+			],
+			proxy: {
+				type: 'rest',
+				url: 'http://webapps.figleaf.com/rest/prototypes/patientdiet',
+				format: 'json'
+			},
+			remoteFilter: true,
+			filters: [{
+				property: 'patientId',
+				value: '{patient.id}'
+			}]
 		}
 	}
 });
