@@ -11,6 +11,9 @@ Ext.define("PatientChart.view.admin.allergies.Allergies", {
 		type: "admin-allergies-allergies"
 	},
 	
+	stateful: true,
+	stateId: 'allergiesAdminWindow',
+
 	constrain: true,
 	width: 400,
 	height: 250,

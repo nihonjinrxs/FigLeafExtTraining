@@ -12,6 +12,9 @@ Ext.define("PatientChart.view.admin.preexistingconditions.PreExistingConditions"
 	},
 
 	
+	stateful: true,
+	stateId: 'preexistingconditionsAdminWindow',
+
 	constrain: true,
 	width: 600,
 	height: 300,
