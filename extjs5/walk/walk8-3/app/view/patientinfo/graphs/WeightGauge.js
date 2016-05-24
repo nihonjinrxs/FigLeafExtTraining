@@ -1,11 +1,25 @@
 
 Ext.define("PatientChart.view.patientinfo.graphs.WeightGauge",{
-    extend: "Ext.panel.Panel",
+    extend: "Ext.chart.PolarChart",
+    alias: 'widget.patientweightgauge',
 
-    controller: "patientinfo-graphs-weightgauge",
-    viewModel: {
-        type: "patientinfo-graphs-weightgauge"
-    },
+    requires: [
+    	'Ext.chart.series.Gauge',
+    	'Ext.chart.series.sprite.PieSlice'
+	],
 
-    html: "Hello, World!!"
+	bind: {
+		store: '{selectedStatStore}',
+		series: '{weightSeries}'
+	},
+
+	series: [
+		{
+			type: 'gauge',
+			field: 'weight',
+			donut: 50,
+			minimum: 0,
+			maximum: 350
+		}
+	]
 });
