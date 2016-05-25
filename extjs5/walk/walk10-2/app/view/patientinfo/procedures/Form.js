@@ -16,6 +16,7 @@ Ext.define('PatientChart.view.patientinfo.procedures.Form', {
 		anchor: '100%'
 	},
 	
+	modelValidation: true,
 	
 	items: [{
 			xtype: 'container',
@@ -27,26 +28,27 @@ Ext.define('PatientChart.view.patientinfo.procedures.Form', {
 			items: [{
 				xtype: 'datefield',
 				name: 'date',
-				fieldLabel: 'Date'
-				
+				fieldLabel: 'Date',
+				bind: '{selectedProcedure.date}'
 			}, {
 				xtype: 'numberfield',
 				name: 'fee',
 				fieldLabel: 'Fee',
-				minValue: 0
+				minValue: 0,
+				bind: '{selectedProcedure.fee}'
 			}]
 		}, {
 			
 			xtype: 'procedurescombo',
-			fieldLabel: 'Procedure'
-			
+			fieldLabel: 'Procedure',
+			bind: '{selectedProcedure.procedureId}'
 			
 			
 		}, {
 			xtype: 'textfield',
 			name: 'description',
-			fieldLabel: 'Description'
-			
+			fieldLabel: 'Description',
+			bind: '{selectedProcedure.description}'
 		},
 
 		{
@@ -54,7 +56,8 @@ Ext.define('PatientChart.view.patientinfo.procedures.Form', {
 			name: 'notes',
 			anchor: '100% -105',
 			fieldLabel: 'Notes',
-			labelAlign: 'top'
+			labelAlign: 'top',
+			bind: '{selectedProcedure.notes}'
 		}
 	]
 
