@@ -5,16 +5,17 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 		'Ext.button.Button',
 		'Ext.button.Split',
 		'Ext.menu.Menu',
-		'Ext.menu.Item'
+		'Ext.menu.Item',
+		'Ext.ux.BoxReorderer'
 	],
 
 	controller: "viewport-navigation",
 	alias: 'widget.mainnavbar',
 
+	plugins: Ext.create('Ext.ux.BoxReorderer', {}),
+
 	stateful: true,
 	stateId: 'mainnavbar',
-
-	
 
 	width: 150,
 	bodyPadding: 5,
