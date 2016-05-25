@@ -11,6 +11,9 @@ Ext.define("PatientChart.view.research.clinicaltrials.ClinicalTrials", {
 		type: "research-clinicaltrials-clinicaltrials"
 	},
 
+	stateful: true,
+	stateId: 'researchClinicalTrialsWindow',
+
 	constrain: true,
 	maximizable: true,
 	
@@ -23,7 +26,8 @@ Ext.define("PatientChart.view.research.clinicaltrials.ClinicalTrials", {
 	},
 	
 	tools: [{
-		type: 'gear'
+		type: 'gear',
+		callback: 'resetGridState'
 	}, {
 		type: 'refresh',
 		callback: function(win) {
@@ -33,6 +37,9 @@ Ext.define("PatientChart.view.research.clinicaltrials.ClinicalTrials", {
 	items: [{
 		xtype: 'grid',
 		
+		stateful: true,
+		stateId: 'researchClinicalTrialsGrid',
+
 		region: 'center',
 		header: false,
 		bind: {

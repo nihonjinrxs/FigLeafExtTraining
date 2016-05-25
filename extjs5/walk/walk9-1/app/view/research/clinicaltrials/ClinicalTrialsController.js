@@ -27,6 +27,20 @@ Ext.define('PatientChart.view.research.clinicaltrials.ClinicalTrialsController',
             }]
         }).show();
 
+    },
+
+    resetGridState: function(win) {
+        var grid = win.down('grid');
+        Ext.Msg.confirm(
+            'Reset Grid Layout',
+            'Reset the grid layout?',
+            function(response) {
+                if (response === 'yes') {
+                    Ext.state.Manager.clear(grid.stateId);
+                    grid.reconfigure(grid.getStore(), grid.initialConfig.columns);
+                }
+            }
+        );
     }
 
 });
