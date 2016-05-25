@@ -12,10 +12,39 @@ Ext.define("PatientChart.view.viewport.Navigation", {
 	controller: "viewport-navigation",
 	alias: 'widget.mainnavbar',
 
-	plugins: Ext.create('Ext.ux.BoxReorderer', {}),
+	plugins: Ext.create('Ext.ux.BoxReorderer', {
+		listeners: {
+			'Drop': function(plugin, container) {
+				container.fireEvent('drop');
+			}
+		}
+	}),
 
 	stateful: true,
 	stateId: 'mainnavbar',
+
+	stateEvents: [ 'drop' ],
+
+	getState: function() {
+		var panelState = this.callParent(arguments);
+		Ext.apply(panelState, {
+			itemOrder: Ext.Array.pluck(this.items.items, 'itemId')
+		});
+		return panelState;
+	},
+
+	applyState: function(state) {
+		this.callParent(arguments);
+		var buttonOrder = state.itemOrder;
+		var lastItem = null;
+		if (buttonOrder) {
+			for (var i = 0; i < buttonOrder.length; i++) {
+				var cmp = this.down('#' + buttonOrder[i]);
+				this.moveBefore(cmp, lastItem);
+				lastItem = cmp;
+			}
+		}
+	},
 
 	width: 150,
 	bodyPadding: 5,
