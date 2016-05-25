@@ -7,7 +7,7 @@ Ext.define("PatientChart.view.patientinfo.procedures.Form",{
     	'Ext.layout.container.Column',
     	'Ext.form.field.Date',
     	'Ext.form.field.Number',
-    	'Ext.form.field.ComboBox',
+    	'PatientChart.view.patientinfo.procedures.ProceduresCombo',
     	'Ext.ux.form.TinyMCETextArea'
     ],
 
@@ -38,6 +38,23 @@ Ext.define("PatientChart.view.patientinfo.procedures.Form",{
     				minValue: 0
     			}
     		]
+    	},
+    	{
+    		xtype: 'procedurescombo',
+    		fieldLabel: 'Procedure',
+    		name: 'procedureId'
+    	},
+    	{
+    		xtype: 'textfield',
+    		name: 'description',
+    		fieldLabel: 'Description'
+    	},
+    	{
+    		xtype: 'tinymce',
+    		name: 'notes',
+    		anchor: '100% -105',
+    		fieldLabel: 'Notes',
+    		labelAlign: 'top'
     	}
     ]
   
