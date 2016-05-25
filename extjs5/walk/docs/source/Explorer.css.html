@@ -15,12 +15,27 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js">@import &quot;overrides&quot;;
+  <pre class="prettyprint lang-js">.x-explorer-view {
+    background-color: #fff;
+}
 
-@include extjs-window-ui(
-	$ui: &#39;credits&#39;,
-    $ui-header-font-size: 20px,
-    $ui-body-background-color: $base-color
-);</pre>
+.x-explorer-item {
+    float: left;
+}
+
+.x-explorer-item-text {
+    text-align: center;
+}
+
+.x-explorer-node-icon {
+    height: 100px;
+    width: 100px;
+    background: url(images/explorer-node.png);
+}
+
+.x-explorer-leaf-icon {
+    background: url(images/explorer-leaf.png);
+}
+</pre>
 </body>
 </html>

@@ -15,806 +15,1047 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js"><span id='Ext-Object'>/**
-</span> * @class Ext.Object
+  <pre class="prettyprint lang-js"><span id='Object'>/**
+</span> * @class Object
  *
- * A collection of useful static methods to deal with objects.
+ * Creates an object wrapper.
  *
- * @singleton
+ * The Object constructor creates an object wrapper for the given value. If the value is null or
+ * undefined, it will create and return an empty object, otherwise, it will return an object of a type
+ * that corresponds to the given value.
+ *
+ * When called in a non-constructor context, Object behaves identically.
+ *
+ * # Using Object given undefined and null types
+ *
+ * The following examples store an empty Object object in o:
+ *     var o = new Object();
+ *
+ *     var o = new Object(undefined);
+ *
+ *     var o = new Object(null);
+ *
+ * # Using Object to create Boolean objects
+ *
+ * The following examples store Boolean objects in o:
+ *
+ *     // equivalent to o = new Boolean(true);
+ *     var o = new Object(true);
+ *
+ *     // equivalent to o = new Boolean(false);
+ *     var o = new Object(Boolean());
+ *
+ * &lt;div class=&quot;notice&quot;&gt;
+ * Documentation for this class comes from &lt;a href=&quot;https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object&quot;&gt;MDN&lt;/a&gt;
+ * and is available under &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/2.0/&quot;&gt;Creative Commons: Attribution-Sharealike license&lt;/a&gt;.
+ * &lt;/div&gt;
  */
 
-(function() {
-
-// The &quot;constructor&quot; for chain:
-var TemplateClass = function(){},
-    ExtObject = Ext.Object = {
-// @define Ext.lang.Object
-// @define Ext.Object
-// @require Ext
-// @require Ext.lang.Date
-
-<span id='Ext-Object-method-chain'>    /**
-</span>     * Returns a new object with the given object as the prototype chain. This method is
-     * designed to mimic the ECMA standard `Object.create` method and is assigned to that
-     * function when it is available.
-     * 
-     * **NOTE** This method does not support the property definitions capability of the
-     * `Object.create` method. Only the first argument is supported.
-     * 
-     * @param {Object} object The prototype chain for the new object.
-     */
-    chain: Object.create || function (object) {
-        TemplateClass.prototype = object;
-        var result = new TemplateClass();
-        TemplateClass.prototype = null;
-        return result;
-    },
-
-<span id='Ext-Object-method-clear'>    /**
-</span>     * This method removes all keys from the given object.
-     * @param {Object} object The object from which to remove all keys.
-     * @return {Object} The given object.
-     */
-    clear: function (object) {
-        // Safe to delete during iteration
-        for (var key in object) {
-            delete object[key];
-        }
-
-        return object;
-    },
-
-<span id='Ext-Object-method-freeze'>    /**
-</span>     * Freezes the given object making it immutable. This operation is by default shallow
-     * and does not effect objects referenced by the given object.
-     * 
-     * @method
-     * @param {Object} obj The object to freeze.
-     * @param {Boolean} [deep=false] Pass `true` to freeze sub-objects recursively.
-     * @return {Object} The given object `obj`.
-     */
-    freeze: Object.freeze ? function (obj, deep) {
-        if (obj &amp;&amp; typeof obj === &#39;object&#39; &amp;&amp; !Object.isFrozen(obj)) {
-            Object.freeze(obj);
-
-            if (deep) {
-                for (var name in obj) {
-                    ExtObject.freeze(obj[name], deep);
-                }
-            }
-        }
-        return obj;
-    } : Ext.identityFn,
-
-<span id='Ext-Object-method-toQueryObjects'>    /**
-</span>     * Converts a `name` - `value` pair to an array of objects with support for nested structures. Useful to construct
-     * query strings. For example:
-     *
-     *     var objects = Ext.Object.toQueryObjects(&#39;hobbies&#39;, [&#39;reading&#39;, &#39;cooking&#39;, &#39;swimming&#39;]);
-     *
-     *     // objects then equals:
-     *     [
-     *         { name: &#39;hobbies&#39;, value: &#39;reading&#39; },
-     *         { name: &#39;hobbies&#39;, value: &#39;cooking&#39; },
-     *         { name: &#39;hobbies&#39;, value: &#39;swimming&#39; },
-     *     ];
-     *
-     *     var objects = Ext.Object.toQueryObjects(&#39;dateOfBirth&#39;, {
-     *         day: 3,
-     *         month: 8,
-     *         year: 1987,
-     *         extra: {
-     *             hour: 4
-     *             minute: 30
-     *         }
-     *     }, true); // Recursive
-     *
-     *     // objects then equals:
-     *     [
-     *         { name: &#39;dateOfBirth[day]&#39;, value: 3 },
-     *         { name: &#39;dateOfBirth[month]&#39;, value: 8 },
-     *         { name: &#39;dateOfBirth[year]&#39;, value: 1987 },
-     *         { name: &#39;dateOfBirth[extra][hour]&#39;, value: 4 },
-     *         { name: &#39;dateOfBirth[extra][minute]&#39;, value: 30 },
-     *     ];
-     *
-     * @param {String} name
-     * @param {Object/Array} value
-     * @param {Boolean} [recursive=false] True to traverse object recursively
-     * @return {Array}
-     */
-    toQueryObjects: function(name, value, recursive) {
-        var self = ExtObject.toQueryObjects,
-            objects = [],
-            i, ln;
-
-        if (Ext.isArray(value)) {
-            for (i = 0, ln = value.length; i &lt; ln; i++) {
-                if (recursive) {
-                    objects = objects.concat(self(name + &#39;[&#39; + i + &#39;]&#39;, value[i], true));
-                }
-                else {
-                    objects.push({
-                        name: name,
-                        value: value[i]
-                    });
-                }
-            }
-        }
-        else if (Ext.isObject(value)) {
-            for (i in value) {
-                if (value.hasOwnProperty(i)) {
-                    if (recursive) {
-                        objects = objects.concat(self(name + &#39;[&#39; + i + &#39;]&#39;, value[i], true));
-                    }
-                    else {
-                        objects.push({
-                            name: name,
-                            value: value[i]
-                        });
-                    }
-                }
-            }
-        }
-        else {
-            objects.push({
-                name: name,
-                value: value
-            });
-        }
-
-        return objects;
-    },
-
-<span id='Ext-Object-method-toQueryString'>    /**
-</span>     * Takes an object and converts it to an encoded query string.
-     *
-     * Non-recursive:
-     *
-     *     Ext.Object.toQueryString({foo: 1, bar: 2}); // returns &quot;foo=1&amp;bar=2&quot;
-     *     Ext.Object.toQueryString({foo: null, bar: 2}); // returns &quot;foo=&amp;bar=2&quot;
-     *     Ext.Object.toQueryString({&#39;some price&#39;: &#39;$300&#39;}); // returns &quot;some%20price=%24300&quot;
-     *     Ext.Object.toQueryString({date: new Date(2011, 0, 1)}); // returns &quot;date=%222011-01-01T00%3A00%3A00%22&quot;
-     *     Ext.Object.toQueryString({colors: [&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;]}); // returns &quot;colors=red&amp;colors=green&amp;colors=blue&quot;
-     *
-     * Recursive:
-     *
-     *     Ext.Object.toQueryString({
-     *         username: &#39;Jacky&#39;,
-     *         dateOfBirth: {
-     *             day: 1,
-     *             month: 2,
-     *             year: 1911
-     *         },
-     *         hobbies: [&#39;coding&#39;, &#39;eating&#39;, &#39;sleeping&#39;, [&#39;nested&#39;, &#39;stuff&#39;]]
-     *     }, true); // returns the following string (broken down and url-decoded for ease of reading purpose):
-     *     // username=Jacky
-     *     //    &amp;dateOfBirth[day]=1&amp;dateOfBirth[month]=2&amp;dateOfBirth[year]=1911
-     *     //    &amp;hobbies[0]=coding&amp;hobbies[1]=eating&amp;hobbies[2]=sleeping&amp;hobbies[3][0]=nested&amp;hobbies[3][1]=stuff
-     *
-     * @param {Object} object The object to encode
-     * @param {Boolean} [recursive=false] Whether or not to interpret the object in recursive format.
-     * (PHP / Ruby on Rails servers and similar).
-     * @return {String} queryString
-     */
-    toQueryString: function(object, recursive) {
-        var paramObjects = [],
-            params = [],
-            i, j, ln, paramObject, value;
-
-        for (i in object) {
-            if (object.hasOwnProperty(i)) {
-                paramObjects = paramObjects.concat(ExtObject.toQueryObjects(i, object[i], recursive));
-            }
-        }
-
-        for (j = 0, ln = paramObjects.length; j &lt; ln; j++) {
-            paramObject = paramObjects[j];
-            value = paramObject.value;
-
-            if (Ext.isEmpty(value)) {
-                value = &#39;&#39;;
-            } else if (Ext.isDate(value)) {
-                value = Ext.Date.toString(value);
-            }
-
-            params.push(encodeURIComponent(paramObject.name) + &#39;=&#39; + encodeURIComponent(String(value)));
-        }
-
-        return params.join(&#39;&amp;&#39;);
-    },
-
-<span id='Ext-Object-method-fromQueryString'>    /**
-</span>     * Converts a query string back into an object.
-     *
-     * Non-recursive:
-     *
-     *     Ext.Object.fromQueryString(&quot;foo=1&amp;bar=2&quot;); // returns {foo: &#39;1&#39;, bar: &#39;2&#39;}
-     *     Ext.Object.fromQueryString(&quot;foo=&amp;bar=2&quot;); // returns {foo: null, bar: &#39;2&#39;}
-     *     Ext.Object.fromQueryString(&quot;some%20price=%24300&quot;); // returns {&#39;some price&#39;: &#39;$300&#39;}
-     *     Ext.Object.fromQueryString(&quot;colors=red&amp;colors=green&amp;colors=blue&quot;); // returns {colors: [&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;]}
-     *
-     * Recursive:
-     *
-     *     Ext.Object.fromQueryString(
-     *         &quot;username=Jacky&amp;&quot;+
-     *         &quot;dateOfBirth[day]=1&amp;dateOfBirth[month]=2&amp;dateOfBirth[year]=1911&amp;&quot;+
-     *         &quot;hobbies[0]=coding&amp;hobbies[1]=eating&amp;hobbies[2]=sleeping&amp;&quot;+
-     *         &quot;hobbies[3][0]=nested&amp;hobbies[3][1]=stuff&quot;, true);
-     *
-     *     // returns
-     *     {
-     *         username: &#39;Jacky&#39;,
-     *         dateOfBirth: {
-     *             day: &#39;1&#39;,
-     *             month: &#39;2&#39;,
-     *             year: &#39;1911&#39;
-     *         },
-     *         hobbies: [&#39;coding&#39;, &#39;eating&#39;, &#39;sleeping&#39;, [&#39;nested&#39;, &#39;stuff&#39;]]
-     *     }
-     *
-     * @param {String} queryString The query string to decode
-     * @param {Boolean} [recursive=false] Whether or not to recursively decode the string. This format is supported by
-     * PHP / Ruby on Rails servers and similar.
-     * @return {Object}
-     */
-    fromQueryString: function(queryString, recursive) {
-        var parts = queryString.replace(/^\?/, &#39;&#39;).split(&#39;&amp;&#39;),
-            object = {},
-            temp, components, name, value, i, ln,
-            part, j, subLn, matchedKeys, matchedName,
-            keys, key, nextKey;
-
-        for (i = 0, ln = parts.length; i &lt; ln; i++) {
-            part = parts[i];
-
-            if (part.length &gt; 0) {
-                components = part.split(&#39;=&#39;);
-                name = decodeURIComponent(components[0]);
-                value = (components[1] !== undefined) ? decodeURIComponent(components[1]) : &#39;&#39;;
-
-                if (!recursive) {
-                    if (object.hasOwnProperty(name)) {
-                        if (!Ext.isArray(object[name])) {
-                            object[name] = [object[name]];
-                        }
-
-                        object[name].push(value);
-                    }
-                    else {
-                        object[name] = value;
-                    }
-                }
-                else {
-                    matchedKeys = name.match(/(\[):?([^\]]*)\]/g);
-                    matchedName = name.match(/^([^\[]+)/);
-
-                    //&lt;debug&gt;
-                    if (!matchedName) {
-                        throw new Error(&#39;[Ext.Object.fromQueryString] Malformed query string given, failed parsing name from &quot;&#39; + part + &#39;&quot;&#39;);
-                    }
-                    //&lt;/debug&gt;
-
-                    name = matchedName[0];
-                    keys = [];
-
-                    if (matchedKeys === null) {
-                        object[name] = value;
-                        continue;
-                    }
-
-                    for (j = 0, subLn = matchedKeys.length; j &lt; subLn; j++) {
-                        key = matchedKeys[j];
-                        key = (key.length === 2) ? &#39;&#39; : key.substring(1, key.length - 1);
-                        keys.push(key);
-                    }
-
-                    keys.unshift(name);
-
-                    temp = object;
-
-                    for (j = 0, subLn = keys.length; j &lt; subLn; j++) {
-                        key = keys[j];
-
-                        if (j === subLn - 1) {
-                            if (Ext.isArray(temp) &amp;&amp; key === &#39;&#39;) {
-                                temp.push(value);
-                            }
-                            else {
-                                temp[key] = value;
-                            }
-                        }
-                        else {
-                            if (temp[key] === undefined || typeof temp[key] === &#39;string&#39;) {
-                                nextKey = keys[j+1];
-
-                                temp[key] = (Ext.isNumeric(nextKey) || nextKey === &#39;&#39;) ? [] : {};
-                            }
-
-                            temp = temp[key];
-                        }
-                    }
-                }
-            }
-        }
-
-        return object;
-    },
-
-<span id='Ext-Object-method-each'>    /**
-</span>     * Iterates through an object and invokes the given callback function for each iteration.
-     * The iteration can be stopped by returning `false` in the callback function. For example:
-     *
-     *     var person = {
-     *         name: &#39;Jacky&#39;
-     *         hairColor: &#39;black&#39;
-     *         loves: [&#39;food&#39;, &#39;sleeping&#39;, &#39;wife&#39;]
-     *     };
-     *
-     *     Ext.Object.each(person, function(key, value, myself) {
-     *         console.log(key + &quot;:&quot; + value);
-     *
-     *         if (key === &#39;hairColor&#39;) {
-     *             return false; // stop the iteration
-     *         }
-     *     });
-     *
-     * @param {Object} object The object to iterate
-     * @param {Function} fn The callback function.
-     * @param {String} fn.key
-     * @param {Object} fn.value
-     * @param {Object} fn.object The object itself
-     * @param {Object} [scope] The execution scope (`this`) of the callback function
-     */
-    each: function(object, fn, scope) {
-        var enumerables = Ext.enumerables,
-            i, property;
-
-        scope = scope || object;
-
-        for (property in object) {
-            if (object.hasOwnProperty(property)) {
-                if (fn.call(scope, property, object[property], object) === false) {
-                    return;
-                }
-            }
-        }
-
-        if (enumerables) {
-            for (i = enumerables.length; i--; ) {
-                if (object.hasOwnProperty(property = enumerables[i])) {
-                    if (fn.call(scope, property, object[property], object) === false) {
-                        return;
-                    }
-                }
-            }
-        }
-    },
-
-<span id='Ext-Object-method-eachValue'>    /**
-</span>     * Iterates through an object and invokes the given callback function for each iteration.
-     * The iteration can be stopped by returning `false` in the callback function. For example:
-     *
-     *     var items = {
-     *         1: &#39;Hello&#39;,
-     *         2: &#39;World&#39;
-     *     };
-     *
-     *     Ext.Object.eachValue(items, function (value) {
-     *         console.log(&quot;Value: &quot; + value);
-     *     });
-     *
-     * This will log &#39;Hello&#39; and &#39;World&#39; in no particular order. This method is useful
-     * in cases where the keys are not important to the processing, just the values.
-     *
-     * @param {Object} object The object to iterate
-     * @param {Function} fn The callback function.
-     * @param {Object} fn.value The value of
-     * @param {Object} [scope] The execution scope (`this`) of the callback function
-     */
-    eachValue: function(object, fn, scope) {
-        var enumerables = Ext.enumerables,
-            i, property;
-
-        scope = scope || object;
-
-        for (property in object) {
-            if (object.hasOwnProperty(property)) {
-                if (fn.call(scope, object[property]) === false) {
-                    return;
-                }
-            }
-        }
-
-        if (enumerables) {
-            for (i = enumerables.length; i--; ) {
-                if (object.hasOwnProperty(property = enumerables[i])) {
-                    if (fn.call(scope, object[property]) === false) {
-                        return;
-                    }
-                }
-            }
-        }
-    },
-
-<span id='Ext-Object-method-merge'>    /**
-</span>     * Merges any number of objects recursively without referencing them or their children.
-     *
-     *     var extjs = {
-     *         companyName: &#39;Ext JS&#39;,
-     *         products: [&#39;Ext JS&#39;, &#39;Ext GWT&#39;, &#39;Ext Designer&#39;],
-     *         isSuperCool: true,
-     *         office: {
-     *             size: 2000,
-     *             location: &#39;Palo Alto&#39;,
-     *             isFun: true
-     *         }
-     *     };
-     *
-     *     var newStuff = {
-     *         companyName: &#39;Sencha Inc.&#39;,
-     *         products: [&#39;Ext JS&#39;, &#39;Ext GWT&#39;, &#39;Ext Designer&#39;, &#39;Sencha Touch&#39;, &#39;Sencha Animator&#39;],
-     *         office: {
-     *             size: 40000,
-     *             location: &#39;Redwood City&#39;
-     *         }
-     *     };
-     *
-     *     var sencha = Ext.Object.merge(extjs, newStuff);
-     *
-     *     // extjs and sencha then equals to
-     *     {
-     *         companyName: &#39;Sencha Inc.&#39;,
-     *         products: [&#39;Ext JS&#39;, &#39;Ext GWT&#39;, &#39;Ext Designer&#39;, &#39;Sencha Touch&#39;, &#39;Sencha Animator&#39;],
-     *         isSuperCool: true,
-     *         office: {
-     *             size: 40000,
-     *             location: &#39;Redwood City&#39;,
-     *             isFun: true
-     *         }
-     *     }
-     *
-     * @param {Object} destination The object into which all subsequent objects are merged.
-     * @param {Object...} object Any number of objects to merge into the destination.
-     * @return {Object} merged The destination object with all passed objects merged in.
-     */
-    merge: function(destination) {
-        var i = 1,
-            ln = arguments.length,
-            mergeFn = ExtObject.merge,
-            cloneFn = Ext.clone,
-            object, key, value, sourceKey;
-
-        for (; i &lt; ln; i++) {
-            object = arguments[i];
-
-            for (key in object) {
-                value = object[key];
-                if (value &amp;&amp; value.constructor === Object) {
-                    sourceKey = destination[key];
-                    if (sourceKey &amp;&amp; sourceKey.constructor === Object) {
-                        mergeFn(sourceKey, value);
-                    } else {
-                        destination[key] = cloneFn(value);
-                    }
-                } else {
-                    destination[key] = value;
-                }
-            }
-        }
-
-        return destination;
-    },
-
-<span id='Ext-Object-method-mergeIf'>    /**
-</span>     * @private
-     * @param destination
-     */
-    mergeIf: function(destination) {
-        var i = 1,
-            ln = arguments.length,
-            cloneFn = Ext.clone,
-            object, key, value;
-
-        for (; i &lt; ln; i++) {
-            object = arguments[i];
-
-            for (key in object) {
-                if (!(key in destination)) {
-                    value = object[key];
-
-                    if (value &amp;&amp; value.constructor === Object) {
-                        destination[key] = cloneFn(value);
-                    }
-                    else {
-                        destination[key] = value;
-                    }
-                }
-            }
-        }
-
-        return destination;
-    },
-
-<span id='Ext-Object-method-getAllKeys'>    /**
-</span>     * Returns all keys of the given object as an array.
-     *
-     * @param {Object} object
-     * @return {String[]} An array of keys from the object or any of its prototypes.
-     * @method
-     */
-    getAllKeys: function (object) {
-        var keys = [],
-            property;
-
-        for (property in object) {
-            keys.push(property);
-        }
-
-        return keys;
-    },
-
-<span id='Ext-Object-method-getKey'>    /**
-</span>     * Returns the first matching key corresponding to the given value.
-     * If no matching value is found, null is returned.
-     *
-     *     var person = {
-     *         name: &#39;Jacky&#39;,
-     *         loves: &#39;food&#39;
-     *     };
-     *
-     *     alert(Ext.Object.getKey(person, &#39;food&#39;)); // alerts &#39;loves&#39;
-     *
-     * @param {Object} object
-     * @param {Object} value The value to find
-     */
-    getKey: function(object, value) {
-        for (var property in object) {
-            if (object.hasOwnProperty(property) &amp;&amp; object[property] === value) {
-                return property;
-            }
-        }
-
-        return null;
-    },
-
-<span id='Ext-Object-method-getValues'>    /**
-</span>     * Gets all values of the given object as an array.
-     *
-     *     var values = Ext.Object.getValues({
-     *         name: &#39;Jacky&#39;,
-     *         loves: &#39;food&#39;
-     *     }); // [&#39;Jacky&#39;, &#39;food&#39;]
-     *
-     * @param {Object} object
-     * @return {Array} An array of values from the object
-     */
-    getValues: function(object) {
-        var values = [],
-            property;
-
-        for (property in object) {
-            if (object.hasOwnProperty(property)) {
-                values.push(object[property]);
-            }
-        }
-
-        return values;
-    },
-
-<span id='Ext-Object-method-getKeys'>    /**
-</span>     * Returns the `hasOwnProperty` keys of the given object as an array.
-     *
-     *     var values = Ext.Object.getKeys({
-     *         name: &#39;Jacky&#39;,
-     *         loves: &#39;food&#39;
-     *     }); // [&#39;name&#39;, &#39;loves&#39;]
-     *
-     * @param {Object} object
-     * @return {String[]} An array of keys from the object
-     * @method
-     */
-    getKeys: (typeof Object.keys == &#39;function&#39;)
-        ? function(object){
-            if (!object) {
-                return [];
-            }
-            return Object.keys(object);
-        }
-        : function(object) {
-            var keys = [],
-                property;
-
-            for (property in object) {
-                if (object.hasOwnProperty(property)) {
-                    keys.push(property);
-                }
-            }
-
-            return keys;
-        },
-
-<span id='Ext-Object-method-getSize'>    /**
-</span>     * Gets the total number of this object&#39;s own properties
-     *
-     *     var size = Ext.Object.getSize({
-     *         name: &#39;Jacky&#39;,
-     *         loves: &#39;food&#39;
-     *     }); // size equals 2
-     *
-     * @param {Object} object
-     * @return {Number} size
-     */
-    getSize: function(object) {
-        var size = 0,
-            property;
-
-        for (property in object) {
-            if (object.hasOwnProperty(property)) {
-                size++;
-            }
-        }
-
-        return size;
-    },
-    
-<span id='Ext-Object-method-isEmpty'>    /**
-</span>     * Checks if there are any properties on this object.
-     * @param {Object} object
-     * @return {Boolean} `true` if there no properties on the object.
-     */
-    isEmpty: function(object){
-        for (var key in object) {
-            if (object.hasOwnProperty(key)) {
-                return false;
-            }
-        }
-        return true;    
-    },
-    
-<span id='Ext-Object-method-equals'>    /**
-</span>     * Shallow compares the contents of 2 objects using strict equality. Objects are
-     * considered equal if they both have the same set of properties and the
-     * value for those properties equals the other in the corresponding object.
-     * 
-     *     // Returns true
-     *     Ext.Object.equals({
-     *         foo: 1,
-     *         bar: 2
-     *     }, {
-     *         foo: 1,
-     *         bar: 2
-     *     });
-     * 
-     * @param {Object} object1
-     * @param {Object} object2
-     * @return {Boolean} `true` if the objects are equal.
-     */
-    equals: (function() {
-        var check = function(o1, o2) {
-            var key;
-        
-            for (key in o1) {
-                if (o1.hasOwnProperty(key)) {
-                    if (o1[key] !== o2[key]) {
-                        return false;
-                    }    
-                }
-            }    
-            return true;
-        };
-        
-        return function(object1, object2) {
-            
-            // Short circuit if the same object is passed twice
-            if (object1 === object2) {
-                return true;
-            } if (object1 &amp;&amp; object2) {
-                // Do the second check because we could have extra keys in
-                // object2 that don&#39;t exist in object1.
-                return check(object1, object2) &amp;&amp; check(object2, object1);  
-            } else if (!object1 &amp;&amp; !object2) {
-                return object1 === object2;
-            } else {
-                return false;
-            }
-        };
-    })(),
-
-<span id='Ext-Object-method-fork'>    /**
-</span>     * @private
-     */
-    fork: function (obj) {
-        var ExtArray = Ext.Array,
-            ret, key, value;
-
-        if (obj &amp;&amp; obj.constructor === Object) {
-            ret = ExtObject.chain(obj);
-
-            for (key in obj) {
-                value = obj[key];
-
-                if (value) {
-                    if (value.constructor === Object) {
-                        ret[key] = ExtObject.fork(value);
-                    } else if (value instanceof Array) {
-                        ret[key] = Ext.Array.clone(value);
-                    }
-                }
-            }
-        } else {
-            ret = obj;
-        }
-
-        return ret;
-    },
-
-    defineProperty: (&#39;defineProperty&#39; in Object) ? Object.defineProperty :
-                function(object, name, descriptor) {
-                    if (!Object.prototype.__defineGetter__) {
-                        return;
-                    }
-                    if (descriptor.get) {
-                        object.__defineGetter__(name, descriptor.get);
-                    }
-
-                    if (descriptor.set) {
-                        object.__defineSetter__(name, descriptor.set);
-                    }
-                },
-
-<span id='Ext-Object-method-classify'>    /**
-</span>     * @private
-     */
-    classify: function(object) {
-        var prototype = object,
-            objectProperties = [],
-            propertyClassesMap = {},
-            objectClass = function() {
-                var i = 0,
-                    ln = objectProperties.length,
-                    property;
-
-                for (; i &lt; ln; i++) {
-                    property = objectProperties[i];
-                    this[property] = new propertyClassesMap[property]();
-                }
-            },
-            key, value;
-
-        for (key in object) {
-            if (object.hasOwnProperty(key)) {
-                value = object[key];
-
-                if (value &amp;&amp; value.constructor === Object) {
-                    objectProperties.push(key);
-                    propertyClassesMap[key] = ExtObject.classify(value);
-                }
-            }
-        }
-
-        objectClass.prototype = prototype;
-
-        return objectClass;
-    }
-};
-
-<span id='Ext-method-merge'>/**
-</span> * A convenient alias method for {@link Ext.Object#merge}.
+<span id='Object-method-constructor'>/**
+</span> * @method constructor
+ * Creates new Object.
+ * @param {Object} [value] The value to wrap.
+ */
+
+//Properties
+
+<span id='Object-property-prototype'>/**
+</span> * @property prototype
+ * Allows the addition of properties to all objects of type Object.
+ */
+
+//Methods
+
+<span id='Object-method-hasOwnProperty'>/**
+</span> * @method hasOwnProperty
+ * Returns a boolean indicating whether an object contains the specified property as a direct property
+ * of that object and not inherited through the prototype chain.
  *
- * @member Ext
- * @method merge
- * @inheritdoc Ext.Object#merge
+ * Every object descended from `Object` inherits the `hasOwnProperty` method. This method can be used
+ * to determine whether an object has the specified property as a direct property of that object;
+ * unlike the `in` operator, this method does not check down the object&#39;s prototype chain.
+ *
+ * The following example determines whether the o object contains a property named prop:
+ *
+ *     o = new Object();
+ *     o.prop = &#39;exists&#39;;
+ *
+ *     function changeO() {
+ *         o.newprop = o.prop;
+ *         delete o.prop;
+ *     }
+ *
+ *     o.hasOwnProperty(&#39;prop&#39;);   //returns true
+ *     changeO();
+ *     o.hasOwnProperty(&#39;prop&#39;);   //returns false
+ *
+ * The following example differentiates between direct properties and properties inherited through the
+ * prototype chain:
+ *
+ *     o = new Object();
+ *     o.prop = &#39;exists&#39;;
+ *     o.hasOwnProperty(&#39;prop&#39;);             // returns true
+ *     o.hasOwnProperty(&#39;toString&#39;);         // returns false
+ *     o.hasOwnProperty(&#39;hasOwnProperty&#39;);   // returns false
+ *
+ * The following example shows how to iterate over the properties of an object without executing on
+ * inherit properties.
+ *
+ *     var buz = {
+ *         fog: &#39;stack&#39;
+ *     };
+ *
+ *     for (var name in buz) {
+ *         if (buz.hasOwnProperty(name)) {
+ *             alert(&quot;this is fog (&quot; + name + &quot;) for sure. Value: &quot; + buz[name]);
+ *         }
+ *         else {
+ *             alert(name); // toString or something else
+ *         }
+ *     }
+ *
+ * @param {String} prop The name of the property to test.
+ * @return {Boolean} Returns true if object contains specified property; else
+ * returns false.
  */
-Ext.merge = Ext.Object.merge;
 
-<span id='Ext-property-mergeIf'>/**
-</span> * @private
- * @member Ext
+<span id='Object-method-isPrototypeOf'>/**
+</span> * @method isPrototypeOf
+ * Returns a boolean indication whether the specified object is in the prototype chain of the object
+ * this method is called upon.
+ *
+ * `isPrototypeOf` allows you to check whether or not an object exists within another object&#39;s
+ * prototype chain.
+ *
+ * For example, consider the following prototype chain:
+ *
+ *     function Fee() {
+ *         // . . .
+ *     }
+ *
+ *     function Fi() {
+ *         // . . .
+ *     }
+ *     Fi.prototype = new Fee();
+ *
+ *     function Fo() {
+ *         // . . .
+ *     }
+ *     Fo.prototype = new Fi();
+ *
+ *     function Fum() {
+ *         // . . .
+ *     }
+ *     Fum.prototype = new Fo();
+ *
+ * Later on down the road, if you instantiate `Fum` and need to check if `Fi`&#39;s prototype exists
+ * within the `Fum` prototype chain, you could do this:
+ *
+ *     var fum = new Fum();
+ *     . . .
+ *
+ *     if (Fi.prototype.isPrototypeOf(fum)) {
+ *     // do something safe
+ *     }
+ *
+ * This, along with the `instanceof` operator particularly comes in handy if you have code that can
+ * only function when dealing with objects descended from a specific prototype chain, e.g., to
+ * guarantee that certain methods or properties will be present on that object.
+ *
+ * @param {Object} prototype an object to be tested against each link in the prototype chain of the
+ * *object* argument
+ * @param {Object} object the object whose prototype chain will be searched
+ * @return {Boolean} Returns true if object is a prototype and false if not.
  */
-Ext.mergeIf = Ext.Object.mergeIf;
 
-}());
-</pre>
+<span id='Object-method-propertyIsEnumerable'>/**
+</span> * @method propertyIsEnumerable
+ * Returns a boolean indicating if the internal ECMAScript DontEnum attribute is set.
+ *
+ * Every object has a `propertyIsEnumerable` method. This method can determine whether the specified
+ * property in an object can be enumerated by a `for...in` loop, with the exception of properties
+ * inherited through the prototype chain. If the object does not have the specified property, this
+ * method returns false.
+ *
+ * The following example shows the use of `propertyIsEnumerable` on objects and arrays:
+ *
+ *     var o = {};
+ *     var a = [];
+ *     o.prop = &#39;is enumerable&#39;;
+ *     a[0] = &#39;is enumerable&#39;;
+ *
+ *     o.propertyIsEnumerable(&#39;prop&#39;);   // returns true
+ *     a.propertyIsEnumerable(0);        // returns true
+ *
+ * The following example demonstrates the enumerability of user-defined versus built-in properties:
+ *
+ *     var a = [&#39;is enumerable&#39;];
+ *
+ *     a.propertyIsEnumerable(0);          // returns true
+ *     a.propertyIsEnumerable(&#39;length&#39;);   // returns false
+ *
+ *     Math.propertyIsEnumerable(&#39;random&#39;);   // returns false
+ *     this.propertyIsEnumerable(&#39;Math&#39;);     // returns false
+ *
+ * Direct versus inherited properties
+ *
+ *     var a = [];
+ *     a.propertyIsEnumerable(&#39;constructor&#39;);         // returns false
+ *
+ *     function firstConstructor()
+ *     {
+ *         this.property = &#39;is not enumerable&#39;;
+ *     }
+ *     firstConstructor.prototype.firstMethod = function () {};
+ *
+ *     function secondConstructor()
+ *     {
+ *         this.method = function method() { return &#39;is enumerable&#39;; };
+ *     }
+ *
+ *     secondConstructor.prototype = new firstConstructor;
+ *     secondConstructor.prototype.constructor = secondConstructor;
+ *
+ *     var o = new secondConstructor();
+ *     o.arbitraryProperty = &#39;is enumerable&#39;;
+ *
+ *     o.propertyIsEnumerable(&#39;arbitraryProperty&#39;);   // returns true
+ *     o.propertyIsEnumerable(&#39;method&#39;);              // returns true
+ *     o.propertyIsEnumerable(&#39;property&#39;);            // returns false
+ *
+ *     o.property = &#39;is enumerable&#39;;
+ *
+ *     o.propertyIsEnumerable(&#39;property&#39;);            // returns true
+ *
+ *     // These return false as they are on the prototype which
+ *     // propertyIsEnumerable does not consider (even though the last two
+ *     // are iteratable with for-in)
+ *     o.propertyIsEnumerable(&#39;prototype&#39;); // returns false (as of JS 1.8.1/FF3.6)
+ *     o.propertyIsEnumerable(&#39;constructor&#39;); // returns false
+ *     o.propertyIsEnumerable(&#39;firstMethod&#39;); // returns false
+ *
+ * @param {String} prop The name of the property to test.
+ * @return {Boolean} If the object does not have the specified property, this
+ * method returns false.
+ */
+
+<span id='Object-method-toLocaleString'>/**
+</span> * @method toLocaleString
+ * Returns a string representing the object. This method is meant to be overridden by derived objects
+ * for locale-specific purposes.
+ *
+ * `Object`&#39;s `toLocaleString` returns the result of calling `toString`.
+ *
+ * This function is provided to give objects a generic `toLocaleString` method, even though not all
+ * may use it. Currently, only `Array`, `Number`, and `Date` override `toLocaleString`.
+ *
+ * @return {String} Object represented as a string.
+ */
+
+<span id='Object-method-toString'>/**
+</span> * @method toString
+ * Returns a string representation of the object.
+ *
+ * Every object has a `toString()` method that is automatically called when the object is to be
+ * represented as a text value or when an object is referred to in a manner in which a string is
+ * expected. By default, the `toString()` method is inherited by every object descended from `Object`.
+ * If this method is not overridden in a custom object, `toString()` returns &quot;[object type]&quot;, where
+ * `type` is the object type. The following code illustrates this:
+ *
+ *     var o = new Object();
+ *     o.toString();           // returns [object Object]
+ *
+ * You can create a function to be called in place of the default `toString()` method. The
+ * `toString()` method takes no arguments and should return a string. The `toString()` method you
+ * create can be any value you want, but it will be most useful if it carries information about the
+ * object.
+ *
+ * The following code defines the `Dog` object type and creates `theDog`, an object of type `Dog`:
+ *
+ *     function Dog(name,breed,color,sex) {
+ *         this.name=name;
+ *         this.breed=breed;
+ *         this.color=color;
+ *         this.sex=sex;
+ *     }
+ *
+ *     theDog = new Dog(&quot;Gabby&quot;,&quot;Lab&quot;,&quot;chocolate&quot;,&quot;female&quot;);
+ *
+ * If you call the `toString()` method on this custom object, it returns the default value inherited
+ * from `Object`:
+ *
+ *     theDog.toString(); //returns [object Object]
+ *
+ * The following code creates and assigns `dogToString()` to override the default `toString()` method.
+ * This function generates a string containing the name, breed, color, and sex of the object, in the
+ * form `&quot;property = value;&quot;`.
+ *
+ *     Dog.prototype.toString = function dogToString() {
+ *         var ret = &quot;Dog &quot; + this.name + &quot; is a &quot; + this.sex + &quot; &quot; + this.color + &quot; &quot; + this.breed;
+ *         return ret;
+ *     }
+ *
+ * With the preceding code in place, any time theDog is used in a string context, JavaScript
+ * automatically calls the `dogToString()` function, which returns the following string:
+ *
+ *     Dog Gabby is a female chocolate Lab
+ *
+ * `toString()` can be used with every object and allows you to get its class. To use the
+ * `Object.prototype.toString()` with every object, you need to call `Function.prototype.call()` or
+ * `Function.prototype.apply()` on it, passing the object you want to inspect as the first parameter
+ * called `thisArg`.
+ *
+ *     var toString = Object.prototype.toString;
+ *
+ *     toString.call(new Date); // [object Date]
+ *     toString.call(new String); // [object String]
+ *     toString.call(Math); // [object Math]
+ *
+ * @return {String} Object represented as a string.
+ */
+
+<span id='Object-method-valueOf'>/**
+</span> * @method valueOf
+ * Returns the primitive value of the specified object.
+ *
+ * JavaScript calls the `valueOf` method to convert an object to a primitive value. You rarely need to
+ * invoke the `valueOf` method yourself; JavaScript automatically invokes it when encountering an
+ * object where a primitive value is expected.
+ *
+ * By default, the `valueOf` method is inherited by every object descended from `Object`. Every built-
+ * in core object overrides this method to return an appropriate value. If an object has no primitive
+ * value, `valueOf` returns the object itself, which is displayed as:
+ *
+ *     [object Object]
+ *
+ * You can use `valueOf` within your own code to convert a built-in object into a primitive value.
+ * When you create a custom object, you can override `Object.valueOf` to call a custom method instead
+ * of the default `Object` method.
+ *
+ * You can create a function to be called in place of the default `valueOf` method. Your function must
+ * take no arguments.
+ *
+ * Suppose you have an object type `myNumberType` and you want to create a `valueOf` method for it.
+ * The following code assigns a user-defined function to the object&#39;s valueOf method:
+ *
+ *     myNumberType.prototype.valueOf = new Function(functionText)
+ *
+ * With the preceding code in place, any time an object of type `myNumberType` is used in a context
+ * where it is to be represented as a primitive value, JavaScript automatically calls the function
+ * defined in the preceding code.
+ *
+ * An object&#39;s `valueOf` method is usually invoked by JavaScript, but you can invoke it yourself as
+ * follows:
+ *
+ *     myNumber.valueOf()
+ *
+ * Note: Objects in string contexts convert via the `toString` method, which is different from
+ * `String` objects converting to string primitives using `valueOf`. All objects have a string
+ * conversion, if only `&quot;[object type]&quot;`. But many objects do not convert to number, boolean, or
+ * function.
+ *
+ * @return {Object} Returns value of the object or the object itself.
+ */
+
+//Properties
+
+<span id='Object-property-constructor'>/**
+</span> * @property constructor
+ * Specifies the function that creates an object&#39;s prototype.
+ *
+ * Returns a reference to the Object function that created the instance&#39;s prototype. Note that the
+ * value of this property is a reference to the function itself, not a string containing the
+ * function&#39;s name, but it isn&#39;t read only (except for primitive Boolean, Number or String values: 1,
+ * true, &quot;read-only&quot;).
+ *
+ * All objects inherit a `constructor` property from their `prototype`:
+ *
+ *     o = new Object // or o = {} in JavaScript 1.2
+ *     o.constructor == Object
+ *     a = new Array // or a = [] in JavaScript 1.2
+ *     a.constructor == Array
+ *     n = new Number(3)
+ *     n.constructor == Number
+ *
+ * Even though you cannot construct most HTML objects, you can do comparisons. For example,
+ *
+ *     document.constructor == Document
+ *     document.form3.constructor == Form
+ *
+ * The following example creates a prototype, `Tree`, and an object of that type, theTree. The example then displays the `constructor` property for the object `theTree`.
+ *
+ *     function Tree(name) {
+ *         this.name = name;
+ *     }
+ *     theTree = new Tree(&quot;Redwood&quot;);
+ *     console.log(&quot;theTree.constructor is &quot; + theTree.constructor);
+ *
+ * This example displays the following output:
+ *
+ *     theTree.constructor is function Tree(name) {
+ *         this.name = name;
+ *     }
+ *
+ * The following example shows how to modify constructor value of generic objects. Only true, 1 and
+ * &quot;test&quot; variable constructors will not be changed. This example explains that is not always so safe
+ * to believe in constructor function.
+ *
+ *     function Type(){};
+ *     var	types = [
+ * 	    new Array,	[],
+ *	    new Boolean,	true,
+ *	    new Date,
+ *	    new Error,
+ *	    new Function,	function(){},
+ *	    Math,
+ *	    new Number,	1,
+ *	    new Object,	{},
+ *	    new RegExp,	/(?:)/,
+ *	    new String,	&quot;test&quot;
+ *     ];
+ *     for(var i = 0; i &lt; types.length; i++){
+ *         types[i].constructor = Type;
+ *         types[i] = [types[i].constructor, types[i] instanceof Type, types[i].toString()];
+ *     };
+ *     alert(types.join(&quot;\n&quot;));
+ */
+
+// ECMAScript 5 methods
+
+<span id='Object-static-method-create'>/**
+</span> * @method create
+ * @static
+ * Creates a new object with the specified prototype object and properties.
+ *
+ * ## Classical inheritance with Object.create
+ *
+ * Below is an example of how to use `Object.create` to achieve
+ * classical inheritance, this is for single inheritance, which is all
+ * that Javascript supports.
+ *
+ *     //Shape - superclass
+ *     function Shape() {
+ *       this.x = 0;
+ *       this.y = 0;
+ *     }
+ *
+ *     Shape.prototype.move = function(x, y) {
+ *         this.x += x;
+ *         this.y += y;
+ *         console.info(&quot;Shape moved.&quot;);
+ *     };
+ *
+ *     // Rectangle - subclass
+ *     function Rectangle() {
+ *       Shape.call(this); //call super constructor.
+ *     }
+ *
+ *     Rectangle.prototype = Object.create(Shape.prototype);
+ *
+ *     var rect = new Rectangle();
+ *
+ *     rect instanceof Rectangle //true.
+ *     rect instanceof Shape //true.
+ *
+ *     rect.move(); //Outputs, &quot;Shape moved.&quot;
+ *
+ * If you wish to inherit from multiple objects, then mixins are a possibility.
+ *
+ *     function MyClass() {
+ *          SuperClass.call(this);
+ *          OtherSuperClass.call(this);
+ *     }
+ *
+ *     MyClass.prototype = Object.create(SuperClass.prototype); //inherit
+ *     mixin(MyClass.prototype, OtherSuperClass.prototype); //mixin
+ *
+ *     MyClass.prototype.myMethod = function() {
+ *          // do a thing
+ *     };
+ *
+ * The mixin function would copy the functions from the superclass
+ * prototype to the subclass prototype, the mixin function needs to be
+ * supplied by the user.
+ *
+ * ## Using `propertiesObject` argument with Object.create
+ *
+ *     var o;
+ *
+ *     // create an object with null as prototype
+ *     o = Object.create(null);
+ *
+ *
+ *     o = {};
+ *     // is equivalent to:
+ *     o = Object.create(Object.prototype);
+ *
+ *
+ *     // Example where we create an object with a couple of sample properties.
+ *     // (Note that the second parameter maps keys to *property descriptors*.)
+ *     o = Object.create(Object.prototype, {
+ *       // foo is a regular &quot;value property&quot;
+ *       foo: { writable:true, configurable:true, value: &quot;hello&quot; },
+ *       // bar is a getter-and-setter (accessor) property
+ *       bar: {
+ *         configurable: false,
+ *         get: function() { return 10 },
+ *         set: function(value) { console.log(&quot;Setting `o.bar` to&quot;, value) }
+ *     }})
+ *
+ *
+ *     function Constructor(){}
+ *     o = new Constructor();
+ *     // is equivalent to:
+ *     o = Object.create(Constructor.prototype);
+ *     // Of course, if there is actual initialization code in the Constructor function, the Object.create cannot reflect it
+ *
+ *
+ *     // create a new object whose prototype is a new, empty object
+ *     // and a adding single property &#39;p&#39;, with value 42
+ *     o = Object.create({}, { p: { value: 42 } })
+ *
+ *     // by default properties ARE NOT writable, enumerable or configurable:
+ *     o.p = 24
+ *     o.p
+ *     //42
+ *
+ *     o.q = 12
+ *     for (var prop in o) {
+ *        console.log(prop)
+ *     }
+ *     //&quot;q&quot;
+ *
+ *     delete o.p
+ *     //false
+ *
+ *     //to specify an ES3 property
+ *     o2 = Object.create({}, { p: { value: 42, writable: true, enumerable: true, configurable: true } });
+ *
+ * **NOTE:** This method is part of the ECMAScript 5 standard.
+ *
+ * @param {Object} proto The object which should be the prototype of
+ * the newly-created object.
+ *
+ * Throws a `TypeError` exception if the `proto` parameter isn&#39;t null or
+ * an object.
+ *
+ * @param {Object} [propertiesObject] If specified and not undefined,
+ * an object whose enumerable own properties (that is, those
+ * properties defined upon itself and not enumerable properties along
+ * its prototype chain) specify property descriptors to be added to
+ * the newly-created object, with the corresponding property names.
+ *
+ * @return {Object} the newly created object.
+ */
+
+<span id='Object-static-method-defineProperty'>/**
+</span> * @method defineProperty
+ * @static
+ *
+ * Defines a new property directly on an object, or modifies an
+ * existing property on an object, and returns the object.
+ *
+ * This method allows precise addition to or modification of a
+ * property on an object. Normal property addition through assignment
+ * creates properties which show up during property enumeration
+ * (for...in loop or {@link Object#keys} method), whose values may be
+ * changed, and which may be deleted. This method allows these extra
+ * details to be changed from their defaults.
+ *
+ * Property descriptors present in objects come in two main flavors:
+ * data descriptors and accessor descriptors. A data descriptor is a
+ * property that has a value, which may or may not be writable. An
+ * accessor descriptor is a property described by a getter-setter pair
+ * of functions. A descriptor must be one of these two flavors; it
+ * cannot be both.
+ *
+ * Both data and accessor descriptor is an object with the following
+ * optional keys:
+ *
+ * - **configurable** True if and only if the type of this property
+ *   descriptor may be changed and if the property may be deleted from
+ *   the corresponding object. Defaults to false.
+ *
+ * - **enumerable** True if and only if this property shows up during
+ *   enumeration of the properties on the corresponding
+ *   object. Defaults to false.
+ *
+ * A data descriptor is an object with the following optional keys:
+ *
+ * - **value** The value associated with the property. Can be any
+ *   valid JavaScript value (number, object, function, etc) Defaults
+ *   to undefined.
+ *
+ * - **writable** True if and only if the value associated with the
+ *   property may be changed with an assignment operator. Defaults to
+ *   false.
+ *
+ * An accessor descriptor is an object with the following optional
+ * keys:
+ *
+ * - **get** A function which serves as a getter for the property, or
+ *   undefined if there is no getter. The function return will be used
+ *   as the value of property. Defaults to undefined.
+ *
+ * - **set** A function which serves as a setter for the property, or
+ *   undefined if there is no setter. The function will receive as
+ *   only argument the new value being assigned to the
+ *   property. Defaults to undefined.
+ *
+ * Bear in mind that these options are not necessarily own properties
+ * so, if inherited, will be considered too. In order to ensure these
+ * defaults are preserved you might freeze the Object.prototype
+ * upfront, specify all options explicitly, or point to null as
+ * __proto__ property.
+ *
+ * **NOTE:** This method is part of the ECMAScript 5 standard.
+ *
+ * @param {Object} obj The object on which to define the property.
+ * @param {String} prop The name of the property to be defined or modified.
+ * @param {Object} descriptor The descriptor for the property being
+ * defined or modified.
+ */
+
+<span id='Object-static-method-defineProperties'>/**
+</span> * @method defineProperties
+ * @static
+ *
+ * Defines new or modifies existing properties directly on an object,
+ * returning the object.
+ *
+ * In essence, it defines all properties corresponding to the
+ * enumerable own properties of props on the object.
+ *
+ *     Object.defineProperties(obj, {
+ *       &quot;property1&quot;: {
+ *         value: true,
+ *         writable: true
+ *       },
+ *       &quot;property2&quot;: {
+ *         value: &quot;Hello&quot;,
+ *         writable: false
+ *       }
+ *       // etc. etc.
+ *     });
+ *
+ * **NOTE:** This method is part of the ECMAScript 5 standard.
+ *
+ * @param {Object} obj The object on which to define or modify properties.
+ * @param {Object} props An object whose own enumerable properties
+ * constitute descriptors for the properties to be defined or
+ * modified.
+ */
+
+<span id='Object-static-method-getOwnPropertyDescriptor'>/**
+</span> * @method getOwnPropertyDescriptor
+ * @static
+ *
+ * Returns a property descriptor for an own property (that is, one
+ * directly present on an object, not present by dint of being along
+ * an object&#39;s prototype chain) of a given object.
+ *
+ * This method permits examination of the precise description of a
+ * property. A property in JavaScript consists of a string-valued name
+ * and a property descriptor. Further information about property
+ * descriptor types and their attributes can be found in
+ * {@link Object#defineProperty}.
+ *
+ * **NOTE:** This method is part of the ECMAScript 5 standard.
+ *
+ * @param {Object} obj The object in which to look for the property.
+ * @param {String} prop The name of the property whose description is
+ * to be retrieved.
+ *
+ * A property descriptor is a record with some of the following
+ * attributes:
+ *
+ * - **value** The value associated with the property (data
+ *   descriptors only).
+ *
+ * - **writable** True if and only if the value associated with
+ *   the property may be changed (data descriptors only).
+ *
+ * - **get** A function which serves as a getter for the property,
+ *    or undefined if there is no getter (accessor descriptors only).
+ *
+ * - **set** A function which serves as a setter for the property,
+ *   or undefined if there is no setter (accessor descriptors only).
+ *
+ * - **configurable** true if and only if the type of this property
+ *   descriptor may be changed and if the property may be deleted
+ *   from the corresponding object.
+ *
+ * - **enumerable** true if and only if this property shows up
+ *   during enumeration of the properties on the corresponding object.
+ *
+ * @return {Mixed} Value of the property descriptor.
+ */
+
+<span id='Object-static-method-keys'>/**
+</span> * @method keys
+ * @static
+ *
+ * Returns an array of a given object&#39;s own enumerable properties, in
+ * the same order as that provided by a for-in loop (the difference
+ * being that a for-in loop enumerates properties in the prototype
+ * chain as well).
+ *
+ * Returns an array whose elements are strings corresponding to the
+ * enumerable properties found directly upon object. The ordering of
+ * the properties is the same as that given by looping over the
+ * properties of the object manually.
+ *
+ *     var arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];
+ *     alert(Object.keys(arr)); // will alert &quot;0,1,2&quot;
+ *
+ *     // array like object
+ *     var obj = { 0 : &quot;a&quot;, 1 : &quot;b&quot;, 2 : &quot;c&quot;};
+ *     alert(Object.keys(obj)); // will alert &quot;0,1,2&quot;
+ *
+ *     // getFoo is property which isn&#39;t enumerable
+ *     var my_obj = Object.create({}, { getFoo : { value : function () { return this.foo } } });
+ *     my_obj.foo = 1;
+ *
+ *     alert(Object.keys(my_obj)); // will alert only foo
+ *
+ * If you want all properties, even the not enumerable, see
+ * {@link Object#getOwnPropertyNames}.
+ *
+ * **NOTE:** This method is part of the ECMAScript 5 standard.
+ *
+ * @param {Object} obj The object whose enumerable own properties are
+ * to be returned.
+ * @return {String[]} Array of property names.
+ */
+
+<span id='Object-static-method-getOwnPropertyNames'>/**
+</span> * @method getOwnPropertyNames
+ * @static
+ *
+ * Returns an array of all properties (enumerable or not) found
+ * directly upon a given object.
+ *
+ * Rreturns an array whose elements are strings corresponding to the
+ * enumerable and non-enumerable properties found directly upon
+ * obj. The ordering of the enumerable properties in the array is
+ * consistent with the ordering exposed by a for...in loop (or by
+ * {@link Object#keys}) over the properties of the object. The
+ * ordering of the non-enumerable properties in the array, and among
+ * the enumerable properties, is not defined.
+ *
+ *     var arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];
+ *     print(Object.getOwnPropertyNames(arr).sort()); // prints &quot;0,1,2,length&quot;
+ *
+ *     // Array-like object
+ *     var obj = { 0: &quot;a&quot;, 1: &quot;b&quot;, 2: &quot;c&quot;};
+ *     print(Object.getOwnPropertyNames(obj).sort()); // prints &quot;0,1,2&quot;
+ *
+ *     // Printing property names and values using Array.forEach
+ *     Object.getOwnPropertyNames(obj).forEach(function(val, idx, array) {
+ *       print(val + &quot; -&gt; &quot; + obj[val]);
+ *     });
+ *     // prints
+ *     // 0 -&gt; a
+ *     // 1 -&gt; b
+ *     // 2 -&gt; c
+ *
+ *     // non-enumerable property
+ *     var my_obj = Object.create({}, { getFoo: { value: function() { return this.foo; }, enumerable: false } });
+ *     my_obj.foo = 1;
+ *
+ *     print(Object.getOwnPropertyNames(my_obj).sort()); // prints &quot;foo, getFoo&quot;
+ *
+ * If you want only the enumerable properties, see {@link Object#keys}
+ * or use a for...in loop (although note that this will return
+ * enumerable properties not found directly upon that object but also
+ * along the prototype chain for the object unless the latter is
+ * filtered with {@link #hasOwnProperty}).
+ *
+ * Items on the prototype chain are not listed:
+ *
+ *     function ParentClass () {
+ *     }
+ *     ParentClass.prototype.inheritedMethod = function () {
+ *     };
+ *
+ *     function ChildClass () {
+ *       this.prop = 5;
+ *       this.method = function () {};
+ *     }
+ *     ChildClass.prototype = new ParentClass;
+ *     ChildClass.prototype.prototypeMethod = function () {
+ *     };
+ *
+ *     alert(
+ *       Object.getOwnPropertyNames(
+ *         new ChildClass() // [&quot;prop&quot;, &quot;method&quot;]
+ *       )
+ *     )
+ *
+ * **NOTE:** This method is part of the ECMAScript 5 standard.
+ *
+ * @param {Object} obj The object whose enumerable and non-enumerable
+ * own properties are to be returned.
+ * @return {String[]} Array of property names.
+ */
+
+<span id='Object-static-method-getPrototypeOf'>/**
+</span> * @method getPrototypeOf
+ * @static
+ *
+ * Returns the prototype (i.e. the internal `[[Prototype]]`) of the
+ * specified object.
+ *
+ * **NOTE:** This method is part of the ECMAScript 5 standard.
+ *
+ * @param {Object} object The object whose prototype is to be returned.
+ * Throws a TypeError exception if this parameter isn&#39;t an Object.
+ *
+ * @return {Object} the prototype
+ */
+
+<span id='Object-static-method-preventExtensions'>/**
+</span> * @method preventExtensions
+ * @static
+ *
+ * Prevents new properties from ever being added to an object
+ * (i.e. prevents future extensions to the object).
+ *
+ * An object is extensible if new properties can be added to it.
+ * `preventExtensions` marks an object as no longer extensible, so that
+ * it will never have properties beyond the ones it had at the time it
+ * was marked as non-extensible.  Note that the properties of a
+ * non-extensible object, in general, may still be deleted. Attempting
+ * to add new properties to a non-extensible object will fail, either
+ * silently or by throwing a TypeError (most commonly, but not
+ * exclusively, when in strict mode).
+ *
+ * It only prevents addition of own properties. Properties can still
+ * be added to the object prototype.
+ *
+ * If there is a way to turn an extensible object to a non-extensible
+ * one, there is no way to do the opposite in ECMAScript 5
+ *
+ * **NOTE:** This method is part of the ECMAScript 5 standard.
+ *
+ * @param {Object} obj The object which should be made non-extensible.
+ */
+
+<span id='Object-static-method-isExtensible'>/**
+</span> * @method isExtensible
+ * @static
+ *
+ * Determines if an object is extensible (whether it can have new
+ * properties added to it).
+ *
+ * Objects are extensible by default: they can have new properties
+ * added to them, and can be modified. An object can be marked as
+ * non-extensible using {@link Object#preventExtensions},
+ * {@link Object#seal}, or {@link Object#freeze}.
+ *
+ *     // New objects are extensible.
+ *     var empty = {};
+ *     assert(Object.isExtensible(empty) === true);
+ *
+ *     // ...but that can be changed.
+ *     Object.preventExtensions(empty);
+ *     assert(Object.isExtensible(empty) === false);
+ *
+ *     // Sealed objects are by definition non-extensible.
+ *     var sealed = Object.seal({});
+ *     assert(Object.isExtensible(sealed) === false);
+ *
+ *     // Frozen objects are also by definition non-extensible.
+ *     var frozen = Object.freeze({});
+ *     assert(Object.isExtensible(frozen) === false);
+ *
+ * **NOTE:** This method is part of the ECMAScript 5 standard.
+ *
+ * @param {Object} obj The object which should be checked.
+ * @return {Boolean} True when object is extensible.
+ */
+
+<span id='Object-static-method-seal'>/**
+</span> * @method seal
+ * @static
+ *
+ * Seals an object, preventing new properties from being added to it
+ * and marking all existing properties as non-configurable. Values of
+ * present properties can still be changed as long as they are
+ * writable.
+ *
+ * By default, objects are extensible (new properties can be added to
+ * them). Sealing an object prevents new properties from being added
+ * and marks all existing properties as non-configurable. This has the
+ * effect of making the set of properties on the object fixed and
+ * immutable. Making all properties non-configurable also prevents
+ * them from being converted from data properties to accessor
+ * properties and vice versa, but it does not prevent the values of
+ * data properties from being changed. Attempting to delete or add
+ * properties to a sealed object, or to convert a data property to
+ * accessor or vice versa, will fail, either silently or by throwing a
+ * TypeError (most commonly, although not exclusively, when in strict
+ * mode code).
+ *
+ * The prototype chain remains untouched.
+ *
+ * **NOTE:** This method is part of the ECMAScript 5 standard.
+ *
+ * @param {Object} obj The object which should be sealed.
+ */
+
+<span id='Object-static-method-isSealed'>/**
+</span> * @method isSealed
+ * @static
+ *
+ * Determines if an object is sealed.
+ *
+ * An object is sealed if it is non-extensible and if all its
+ * properties are non-configurable and therefore not removable (but
+ * not necessarily non-writable).
+ *
+ *     // Objects aren&#39;t sealed by default.
+ *     var empty = {};
+ *     assert(Object.isSealed(empty) === false);
+ *
+ *     // If you make an empty object non-extensible, it is vacuously sealed.
+ *     Object.preventExtensions(empty);
+ *     assert(Object.isSealed(empty) === true);
+ *
+ *     // The same is not true of a non-empty object, unless its properties are all non-configurable.
+ *     var hasProp = { fee: &quot;fie foe fum&quot; };
+ *     Object.preventExtensions(hasProp);
+ *     assert(Object.isSealed(hasProp) === false);
+ *
+ *     // But make them all non-configurable and the object becomes sealed.
+ *     Object.defineProperty(hasProp, &quot;fee&quot;, { configurable: false });
+ *     assert(Object.isSealed(hasProp) === true);
+ *
+ *     // The easiest way to seal an object, of course, is Object.seal.
+ *     var sealed = {};
+ *     Object.seal(sealed);
+ *     assert(Object.isSealed(sealed) === true);
+ *
+ *     // A sealed object is, by definition, non-extensible.
+ *     assert(Object.isExtensible(sealed) === false);
+ *
+ *     // A sealed object might be frozen, but it doesn&#39;t have to be.
+ *     assert(Object.isFrozen(sealed) === true); // all properties also non-writable
+ *
+ *     var s2 = Object.seal({ p: 3 });
+ *     assert(Object.isFrozen(s2) === false); // &quot;p&quot; is still writable
+ *
+ *     var s3 = Object.seal({ get p() { return 0; } });
+ *     assert(Object.isFrozen(s3) === true); // only configurability matters for accessor properties
+ *
+ * **NOTE:** This method is part of the ECMAScript 5 standard.
+ *
+ * @param {Object} obj The object which should be checked.
+ * @return {Boolean} True if the object is sealed, otherwise false.
+ */
+
+<span id='Object-static-method-freeze'>/**
+</span> * @method freeze
+ * @static
+ *
+ * Freezes an object: that is, prevents new properties from being
+ * added to it; prevents existing properties from being removed; and
+ * prevents existing properties, or their enumerability,
+ * configurability, or writability, from being changed. In essence the
+ * object is made effectively immutable. The method returns the object
+ * being frozen.
+ *
+ * Nothing can be added to or removed from the properties set of a
+ * frozen object. Any attempt to do so will fail, either silently or
+ * by throwing a TypeError exception (most commonly, but not
+ * exclusively, when in strict mode).
+ *
+ * Values cannot be changed for data properties. Accessor properties
+ * (getters and setters) work the same (and still give the illusion
+ * that you are changing the value). Note that values that are objects
+ * can still be modified, unless they are also frozen.
+ *
+ * **NOTE:** This method is part of the ECMAScript 5 standard.
+ *
+ * @param {Object} obj The object to freeze.
+ */
+
+<span id='Object-static-method-isFrozen'>/**
+</span> * @method isFrozen
+ * @static
+ *
+ * Determines if an object is frozen.
+ *
+ * An object is frozen if and only if it is not extensible, all its
+ * properties are non-configurable, and all its data properties (that
+ * is, properties which are not accessor properties with getter or
+ * setter components) are non-writable.
+ *
+ *     // A new object is extensible, so it is not frozen.
+ *     assert(Object.isFrozen({}) === false);
+ *
+ *     // An empty object which is not extensible is vacuously frozen.
+ *     var vacuouslyFrozen = Object.preventExtensions({});
+ *     assert(Object.isFrozen(vacuouslyFrozen) === true);
+ *
+ *     // A new object with one property is also extensible, ergo not frozen.
+ *     var oneProp = { p: 42 };
+ *     assert(Object.isFrozen(oneProp) === false);
+ *
+ *     // Preventing extensions to the object still doesn&#39;t make it frozen,
+ *     // because the property is still configurable (and writable).
+ *     Object.preventExtensions(oneProp);
+ *     assert(Object.isFrozen(oneProp) === false);
+ *
+ *     // ...but then deleting that property makes the object vacuously frozen.
+ *     delete oneProp.p;
+ *     assert(Object.isFrozen(oneProp) === true);
+ *
+ *     // A non-extensible object with a non-writable but still configurable property is not frozen.
+ *     var nonWritable = { e: &quot;plep&quot; };
+ *     Object.preventExtensions(nonWritable);
+ *     Object.defineProperty(nonWritable, &quot;e&quot;, { writable: false }); // make non-writable
+ *     assert(Object.isFrozen(nonWritable) === false);
+ *
+ *     // Changing that property to non-configurable then makes the object frozen.
+ *     Object.defineProperty(nonWritable, &quot;e&quot;, { configurable: false }); // make non-configurable
+ *     assert(Object.isFrozen(nonWritable) === true);
+ *
+ *     // A non-extensible object with a non-configurable but still writable property also isn&#39;t frozen.
+ *     var nonConfigurable = { release: &quot;the kraken!&quot; };
+ *     Object.preventExtensions(nonConfigurable);
+ *     Object.defineProperty(nonConfigurable, &quot;release&quot;, { configurable: false });
+ *     assert(Object.isFrozen(nonConfigurable) === false);
+ *
+ *     // Changing that property to non-writable then makes the object frozen.
+ *     Object.defineProperty(nonConfigurable, &quot;release&quot;, { writable: false });
+ *     assert(Object.isFrozen(nonConfigurable) === true);
+ *
+ *     // A non-extensible object with a configurable accessor property isn&#39;t frozen.
+ *     var accessor = { get food() { return &quot;yum&quot;; } };
+ *     Object.preventExtensions(accessor);
+ *     assert(Object.isFrozen(accessor) === false);
+ *
+ *     // ...but make that property non-configurable and it becomes frozen.
+ *     Object.defineProperty(accessor, &quot;food&quot;, { configurable: false });
+ *     assert(Object.isFrozen(accessor) === true);
+ *
+ *     // But the easiest way for an object to be frozen is if Object.freeze has been called on it.
+ *     var frozen = { 1: 81 };
+ *     assert(Object.isFrozen(frozen) === false);
+ *     Object.freeze(frozen);
+ *     assert(Object.isFrozen(frozen) === true);
+ *
+ *     // By definition, a frozen object is non-extensible.
+ *     assert(Object.isExtensible(frozen) === false);
+ *
+ *     // Also by definition, a frozen object is sealed.
+ *     assert(Object.isSealed(frozen) === true);
+ *
+ * **NOTE:** This method is part of the ECMAScript 5 standard.
+ *
+ * @param {Object} obj The object which should be checked.
+ * @return {Boolean} True if the object is frozen, otherwise false.
+ */</pre>
 </body>
 </html>
