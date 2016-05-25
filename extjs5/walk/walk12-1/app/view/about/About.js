@@ -1,3 +1,12 @@
+/**
+ * Displays information about the product that is pulled
+ * from a &lt;div&gt; tag on the HTML page with an id of
+ * 'aboutDoctorExt'
+ * 
+ * Panel is populated by the {@link PatientChart.view.about.AboutController#onAfterRender onAfterRender view controller method}
+ * 
+ * {@img view/about/About.png About Window}
+ */
 Ext.define('PatientChart.view.about.About', {
 	extend: 'Ext.window.Window',
 	requires: ['PatientChart.view.about.AboutController'],

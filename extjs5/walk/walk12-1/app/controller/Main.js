@@ -1,8 +1,14 @@
-
+/**
+ * Route handling, global store loading, and authentication / authorization services
+ */
 Ext.define('PatientChart.controller.Main', {
   extend: 'Ext.app.Controller',
 
   config: {
+    /**
+     * May be any of the following: 'adminperspective',
+     * 'patientinfoperspective', 'researchperspective'
+     */
     currentPerspective: null
   },
 
@@ -98,6 +104,14 @@ Ext.define('PatientChart.controller.Main', {
     }
   },
 
+  /**
+   * Brings window to front, sets focus, and executes frame animation effect
+   *
+   * @param {Object} win A required Ext.window.Window
+   * @param {Boolean} [noframe] Set to true to prevent frame animation
+   *
+   * @return {Object} The window
+   */
   focusWin: function(win, noframe) {
     Ext.WindowManager.bringToFront(win, noframe);
     win.center();

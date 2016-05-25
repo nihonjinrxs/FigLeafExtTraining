@@ -15,26 +15,35 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js">Ext.define(&#39;PatientChart.view.about.About&#39;, {
+  <pre class="prettyprint lang-js"><span id='PatientChart-view-about-About'>/**
+</span> * Displays information about the product that is pulled
+ * from a &amp;lt;div&amp;gt; tag on the HTML page with an id of
+ * &#39;aboutDoctorExt&#39;
+ * 
+ * Panel is populated by the {@link PatientChart.view.about.AboutController#onAfterRender onAfterRender view controller method}
+ * 
+ * {@img view/about/About.png About Window}
+ */
+Ext.define(&#39;PatientChart.view.about.About&#39;, {
 	extend: &#39;Ext.window.Window&#39;,
 	requires: [&#39;PatientChart.view.about.AboutController&#39;],
 	mixins: [&#39;Ext.ux.mixins.WindowAnimations&#39;],
 	alias: &#39;widget.about&#39;,
-	controller: &#39;about-about&#39;,
-
-	modal: true,
-	autoShow: true,
-	width: 575,
-	height: 375,
-	title: &#39;About Doctor Ext&#39;,
-	
-	cls: &#39;credits&#39;,
-	ui: &#39;credits&#39;,
-
-	closeAnimation: &#39;switchOff&#39;,
-	
-	dockedItems: [{
-		xtype: &#39;toolbar&#39;,
+<span id='PatientChart-view-about-About-cfg-controller'>	controller: &#39;about-about&#39;,
+</span>
+<span id='PatientChart-view-about-About-cfg-modal'>	modal: true,
+</span><span id='PatientChart-view-about-About-cfg-autoShow'>	autoShow: true,
+</span><span id='PatientChart-view-about-About-cfg-width'>	width: 575,
+</span><span id='PatientChart-view-about-About-cfg-height'>	height: 375,
+</span><span id='PatientChart-view-about-About-cfg-title'>	title: &#39;About Doctor Ext&#39;,
+</span>	
+<span id='PatientChart-view-about-About-cfg-cls'>	cls: &#39;credits&#39;,
+</span><span id='PatientChart-view-about-About-cfg-ui'>	ui: &#39;credits&#39;,
+</span>
+<span id='PatientChart-view-about-About-property-closeAnimation'>	closeAnimation: &#39;switchOff&#39;,
+</span>	
+<span id='PatientChart-view-about-About-cfg-dockedItems'>	dockedItems: [{
+</span>		xtype: &#39;toolbar&#39;,
 		style: {
 			&#39;background-color&#39;: &#39;#0082c9&#39;
 		},
@@ -65,8 +74,8 @@
 		}]
 
 	}],
-	listeners: {
-		&#39;afterrender&#39;: &#39;onAfterRender&#39;
+<span id='PatientChart-view-about-About-cfg-listeners'>	listeners: {
+</span>		&#39;afterrender&#39;: &#39;onAfterRender&#39;
 	}
 });</pre>
 </body>

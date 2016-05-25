@@ -9,6 +9,9 @@ Ext.define('PatientChart.AppDefaults', {
 	requires: ['Ext.window.MessageBox'],
 	singleton: true,
 	config: {
+		/**
+		 * The base REST url to access data services
+		 */
 		webserviceUrl: 'http://webapps.figleaf.com/rest/prototypes/'
 	},
 	constructor: function(config) {

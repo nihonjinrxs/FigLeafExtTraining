@@ -15,11 +15,17 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js">
+  <pre class="prettyprint lang-js"><span id='PatientChart-controller-Main'>/**
+</span> * Route handling, global store loading, and authentication / authorization services
+ */
 Ext.define(&#39;PatientChart.controller.Main&#39;, {
   extend: &#39;Ext.app.Controller&#39;,
 
   config: {
+<span id='PatientChart-controller-Main-cfg-currentPerspective'>    /**
+</span>     * May be any of the following: &#39;adminperspective&#39;,
+     * &#39;patientinfoperspective&#39;, &#39;researchperspective&#39;
+     */
     currentPerspective: null
   },
 
@@ -35,8 +41,8 @@ Ext.define(&#39;PatientChart.controller.Main&#39;, {
     &#39;PatientChart.view.research.Research&#39;
   ],
 
-  models: [
-    &#39;Patient&#39;,
+<span id='PatientChart-controller-Main-cfg-models'>  models: [
+</span>    &#39;Patient&#39;,
     &#39;Allergy&#39;,
     &#39;BillingCode&#39;,
     &#39;PreExistingCondition&#39;,
@@ -44,20 +50,20 @@ Ext.define(&#39;PatientChart.controller.Main&#39;, {
     &#39;PatientMediaAsset&#39;
   ],
 
-  stores: [
-    &#39;Allergies&#39;,
+<span id='PatientChart-controller-Main-cfg-stores'>  stores: [
+</span>    &#39;Allergies&#39;,
     &#39;BillingCodes&#39;,
     &#39;PreExistingConditions&#39;
   ],
 
-  refs: {
-    centerRegion: &#39;viewport &gt; panel[region=center]&#39;,
+<span id='PatientChart-controller-Main-cfg-refs'>  refs: {
+</span>    centerRegion: &#39;viewport &gt; panel[region=center]&#39;,
     navButtons: &#39;mainnavbar&#39;,
     viewport: &#39;viewport&#39;
   },
 
-  routes: {
-    &#39;patient/search&#39;: {
+<span id='PatientChart-controller-Main-cfg-routes'>  routes: {
+</span>    &#39;patient/search&#39;: {
       action: &#39;onPatientSearch&#39;,
       before: &#39;onAuthenticate&#39;
     },
@@ -85,20 +91,20 @@ Ext.define(&#39;PatientChart.controller.Main&#39;, {
 
 
 
-  onResearchPerspective: function() {
-    this.setCurrentPerspective(&#39;researchperspective&#39;);
+<span id='PatientChart-controller-Main-method-onResearchPerspective'>  onResearchPerspective: function() {
+</span>    this.setCurrentPerspective(&#39;researchperspective&#39;);
   },
 
-  onResearchWindow: function(xtype) {
-    this.setCurrentPerspective(&#39;researchperspective&#39;);
+<span id='PatientChart-controller-Main-method-onResearchWindow'>  onResearchWindow: function(xtype) {
+</span>    this.setCurrentPerspective(&#39;researchperspective&#39;);
     this.getCenterRegion().add({
       xtype: xtype,
       constrain: true
     }).show();
   },
 
-  onLogout: function() {
-    var vm = this.getViewport().getViewModel();
+<span id='PatientChart-controller-Main-method-onLogout'>  onLogout: function() {
+</span>    var vm = this.getViewport().getViewModel();
     vm.set(&#39;userName&#39;, &#39;anonymous&#39;);
     vm.set(&#39;role&#39;, &#39;admin&#39;);
     PatientChart.credentials = null;
@@ -115,6 +121,14 @@ Ext.define(&#39;PatientChart.controller.Main&#39;, {
     }
   },
 
+<span id='PatientChart-controller-Main-method-focusWin'>  /**
+</span>   * Brings window to front, sets focus, and executes frame animation effect
+   *
+   * @param {Object} win A required Ext.window.Window
+   * @param {Boolean} [noframe] Set to true to prevent frame animation
+   *
+   * @return {Object} The window
+   */
   focusWin: function(win, noframe) {
     Ext.WindowManager.bringToFront(win, noframe);
     win.center();
@@ -126,8 +140,8 @@ Ext.define(&#39;PatientChart.controller.Main&#39;, {
 
   },
 
-  onAdminViewWindow: function(xtype) {
-    this.setCurrentPerspective(&#39;adminperspective&#39;);
+<span id='PatientChart-controller-Main-method-onAdminViewWindow'>  onAdminViewWindow: function(xtype) {
+</span>    this.setCurrentPerspective(&#39;adminperspective&#39;);
 
     var win = Ext.ComponentQuery.query(xtype);
     if (win.length == 1) {
@@ -139,12 +153,12 @@ Ext.define(&#39;PatientChart.controller.Main&#39;, {
     }
   },
 
-  onAdminPerspective: function() {
-    this.setCurrentPerspective(&#39;adminperspective&#39;);
+<span id='PatientChart-controller-Main-method-onAdminPerspective'>  onAdminPerspective: function() {
+</span>    this.setCurrentPerspective(&#39;adminperspective&#39;);
   },
 
-  onPatientSearch: function() {
-
+<span id='PatientChart-controller-Main-method-onPatientSearch'>  onPatientSearch: function() {
+</span>
     this.setCurrentPerspective(&#39;patientinfoperspective&#39;);
     this.getCenterRegion().add({
       xtype: &#39;patientsearchwindow&#39;,
@@ -153,8 +167,8 @@ Ext.define(&#39;PatientChart.controller.Main&#39;, {
     }).show();
   },
 
-  onLoadPatientRecord: function(id, tab) {
-    this.setCurrentPerspective(&#39;patientinfoperspective&#39;);
+<span id='PatientChart-controller-Main-method-onLoadPatientRecord'>  onLoadPatientRecord: function(id, tab) {
+</span>    this.setCurrentPerspective(&#39;patientinfoperspective&#39;);
 
 
     var patient = this.getCenterRegion().getViewModel().get(&#39;patient&#39;);
@@ -171,8 +185,8 @@ Ext.define(&#39;PatientChart.controller.Main&#39;, {
 
   },
 
-  updateCurrentPerspective: function(newPerspective, oldPerspective) {
-
+<span id='PatientChart-controller-Main-method-updateCurrentPerspective'>  updateCurrentPerspective: function(newPerspective, oldPerspective) {
+</span>
     if (newPerspective != oldPerspective) {
       if (this.getCenterRegion()) {
         this.getCenterRegion().destroy();
@@ -185,8 +199,8 @@ Ext.define(&#39;PatientChart.controller.Main&#39;, {
     }
   },
 
-  onAuthenticate: function() {
-
+<span id='PatientChart-controller-Main-method-onAuthenticate'>  onAuthenticate: function() {
+</span>
     var action = arguments[arguments.length - 1],
       me = this;
 

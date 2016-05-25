@@ -26,8 +26,11 @@ Ext.define(&#39;PatientChart.AppDefaults&#39;, {
 	requires: [&#39;Ext.window.MessageBox&#39;],
 	singleton: true,
 	config: {
-<span id='PatientChart-AppDefaults-cfg-webserviceUrl'>		webserviceUrl: &#39;http://webapps.figleaf.com/rest/prototypes/&#39;
-</span>	},
+<span id='PatientChart-AppDefaults-cfg-webserviceUrl'>		/**
+</span>		 * The base REST url to access data services
+		 */
+		webserviceUrl: &#39;http://webapps.figleaf.com/rest/prototypes/&#39;
+	},
 <span id='PatientChart-AppDefaults-method-constructor'>	constructor: function(config) {
 </span>		this.initConfig(config);
 	},
