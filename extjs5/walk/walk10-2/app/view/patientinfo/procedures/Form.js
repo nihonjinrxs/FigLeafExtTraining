@@ -17,6 +17,10 @@ Ext.define('PatientChart.view.patientinfo.procedures.Form', {
 	},
 	
 	modelValidation: true,
+
+	bind: {
+		disabled: '{!selectedProcedure}'
+	},
 	
 	items: [{
 			xtype: 'container',
@@ -58,6 +62,14 @@ Ext.define('PatientChart.view.patientinfo.procedures.Form', {
 			fieldLabel: 'Notes',
 			labelAlign: 'top',
 			bind: '{selectedProcedure.notes}'
+		}
+	],
+
+	tools: [
+		{
+			xtype: 'tool',
+			type: 'save',
+			formBind: true
 		}
 	]
 
