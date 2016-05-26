@@ -66,6 +66,18 @@ Ext.define('PatientChart.view.patientinfo.procedures.Form', {
 			fieldLabel: 'Notes',
 			labelAlign: 'top',
 			bind: '{selectedProcedure.notes}'
+		},
+
+		{
+			xtype: 'hiddenfield',
+			name: 'id',
+			bind: '{selectedProcedure.id}'
+		},
+
+		{
+			xtype: 'hiddenfield',
+			name: 'patientId',
+			bind: '{patient.id}'
 		}
 	]
 

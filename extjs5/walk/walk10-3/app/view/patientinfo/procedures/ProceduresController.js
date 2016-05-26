@@ -2,8 +2,31 @@ Ext.define('PatientChart.view.patientinfo.procedures.ProceduresController', {
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.patientprocedures',
 
-
-	
+	onSaveForm: function(form, tool) {
+		form.submit({
+			clientValidation: true,
+			url: 'http://webapps.figleaf.com/webservices/savepatientprocedure.cfm',
+			success: function(form, response) {
+				Ext.Msg.alert('Success', response.result.msg);
+				var rec = this.getViewModel().get('selectedProcedure');
+				rec.set('id', response.result.id);
+				rec.commit;
+			},
+			failure: function(form, error) {
+				switch (error.failureType) {
+					case Ext.form.action.Action.CLIENT_INVALID:
+						Ext.Msg.alert('Failure', 'Form has invalid values');
+						break;
+					case Ext.form.action.Action.CONNECT_FAILURE:
+						Ext.Msg.alert('Failure', 'Communication failed');
+						break;
+					case Ext.form.action.Action.SERVER_INVALID:
+						Ext.Msg.alert('Failure', error.result.msg);
+				}
+			},
+			scope: this
+		});
+	},
 
 	onBillingCodeSelect: function(combo, record, eOpts) {
 
